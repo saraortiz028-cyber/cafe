@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Empleados</title>
+    <link rel="stylesheet" href="public/css/estilo.css">
+</head>
+<body>
+<?php include __DIR__ . '/../navbar.php'; ?>
+    <h1>Empleados</h1>
+    <a href="index.php?controlador=empleado&accion=crear">Nuevo Empleado</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Salario</th>
+            <th>Fecha Contratacion</th>
+            <th>ID Cargo</th>
+            <th>ID Sucursal</th>
+            <th>Acciones</th>
+        </tr>
+        <?php while($e = $empleados->fetch_object()): ?>
+        <tr>
+            <td><?= $e->IdEmpleado ?></td>
+            <td><?= $e->Nombre ?></td>
+            <td><?= $e->Apellido ?></td>
+            <td><?= $e->Direccion ?></td>
+            <td><?= $e->Telefono ?></td>
+            <td><?= $e->Correo ?></td>
+            <td><?= $e->Salario ?></td>
+            <td><?= $e->FechaContratacion ?></td>
+            <td><?= $e->IdCargo ?></td>
+            <td><?= $e->IdSucursal ?></td>
+            <td>
+                <a href="index.php?controlador=empleado&accion=editar&id=<?= $e->IdEmpleado ?>">Editar</a>
+                <a href="index.php?controlador=empleado&accion=eliminar&id=<?= $e->IdEmpleado ?>">Eliminar</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
