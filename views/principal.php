@@ -52,10 +52,10 @@ switch ($controlador) {
         break;
     default:
         // Vista principal o panel de navegación por enlace
-        require_once "controllers/ClienteController.php"; // O un controlador general que cargue principal.php
-        $cont = new ClienteController();
-        $accion = 'index';
-        break;
+       require_once "controllers/HomeController.php";
+    $homeController = new HomeController();
+    $homeController->index();
+    exit;
 }
 
 if (method_exists($cont, $accion)) {
