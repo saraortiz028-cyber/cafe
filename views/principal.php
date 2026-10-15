@@ -1,4 +1,3 @@
-<?php include "views/navbar.php"; ?>
 
 <head>
     <link rel="stylesheet" href="public/css/estilo.css">

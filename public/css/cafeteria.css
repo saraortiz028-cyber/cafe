@@ -281,7 +281,7 @@ h1 em, h2 em {
     line-height: 1.8;
     text-align: right;
 }
-
+/* dibujo de una taza de café */
 .coffee-cup {
     position: absolute;
     z-index: 3;
@@ -770,7 +770,7 @@ h2 {
     font-size: 11px;
     line-height: 1.9;
 }
-
+/* mas botones */
 .button-outline {
     min-height: 40px;
     border: 1px solid #c9c7bb;
@@ -837,7 +837,7 @@ h2 {
     display: inline-block;
     padding-left: 19px;
 }
-
+/* mas botones */
 .button-light {
     min-height: 40px;
     background: #f8f6f0;

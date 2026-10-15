@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="public/css/estilo.css">
 </head>
 <body>
-    
+    <?php include __DIR__ . '/../navbar.php'; ?>
     
     <h1>Clientes</h1>
     <p><a href="index.php?controlador=cliente&accion=crear">Nuevo Cliente</a></p>
