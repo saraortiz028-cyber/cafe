@@ -26,12 +26,22 @@
         <label for="salario">Salario:</label>
         <input type="number" step="0.01" id="salario" name="salario" placeholder="Salario">
 
-        <label for="id_cargo">ID Cargo:</label>
-        <input type="number" id="id_cargo" name="id_cargo" placeholder="ID del Cargo">
+        <label for="id_cargo">Cargo:</label>
+        <select id="id_cargo" name="id_cargo" required>
+            <option value="">Selecciona un cargo</option>
+            <?php while ($c = $cargos->fetch_object()): ?>
+                <option value="<?= (int) $c->IdCargo ?>"><?= htmlspecialchars($c->NombreCargo, ENT_QUOTES, 'UTF-8') ?></option>
+            <?php endwhile; ?>
+        </select>
 
-        <label for="id_sucursal">ID Sucursal:</label>
-        <input type="number" id="id_sucursal" name="id_sucursal" placeholder="ID de la Sucursal">
-
+        <label for="id_sucursal">Sucursal:</label>
+        <select id="id_sucursal" name="id_sucursal" required>
+            <option value="">Selecciona una sucursal</option>
+            <?php while ($s = $sucursales->fetch_object()): ?>
+                <option value="<?= (int) $s->IdSucursal ?>"><?= htmlspecialchars($s->Nombre, ENT_QUOTES, 'UTF-8') ?></option>
+            <?php endwhile; ?>
+        </select>
+        
         <button type="submit">Guardar</button>
     </form>
 </body>
