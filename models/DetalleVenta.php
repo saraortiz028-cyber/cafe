@@ -41,6 +41,11 @@ class DetalleVenta {
               $subtotal = $cantidad * $precioUnitario;
               $stmt->bind_param("iiidd", $idVenta, $idProducto, $cantidad, $precioUnitario, $subtotal);
             $stmt->execute();
+
+            $stmtStock = $db->prepare("UPDATE productos SET Existencias = Existencias - ? WHERE IdProducto = ?");
+            $stmtStock->bind_param("ii", $cantidad, $idProducto);
+            $stmtStock->execute();
+
             self::actualizarTotal($db, $idVenta);
             $db->commit();
         } catch (Throwable $error) {
@@ -54,7 +59,8 @@ class DetalleVenta {
         $db->begin_transaction();
 
         try {
-            $subtotal = $cantidad * $precioUnitario; 
+            $subtotal = $cantidad * $precioUnitario;
+
             $stmt = $db->prepare(
                  "UPDATE detalle_venta
                   SET IdProducto = ?, Cantidad = ?, PrecioUnitario = ?, SubTotal = ?
