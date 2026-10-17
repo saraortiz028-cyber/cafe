@@ -325,7 +325,7 @@ table {
 
 /* Encabezado de la Tabla */
 thead {
-    background-color: var(--green); /* Color verde institucional de tu CSS */
+    background-color: #8bda94 ; /* Tono verde muy suave */
     color: #ffffff;
 }
 
@@ -355,7 +355,7 @@ tbody tr:hover {
 
 td {
     padding: 14px 18px;
-    color: #4a493c;
+    color: #000000;
     vertical-align: middle;
 }
 
@@ -412,6 +412,42 @@ td a[href*="detalle"] {
 td a[href*="detalle"]:hover {
     background: #155724;
     border-color: #155724;
+}
+
+/* Contenedor general para las vistas de administración */
+.admin-content {
+    max-width: 1500px;     /* Ancho máximo para que no se extienda por toda la pantalla */
+    margin: 40px auto;     /* Centra automáticamente el bloque horizontalmente */
+    padding: 0 20px;       /* Margen de seguridad a los lados en pantallas pequeñas */
+}
+
+/* Estilo general para las tablas de administración */
+.admin-content table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #eeece4;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.admin-content th, 
+.admin-content td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 11px;
+}
+
+.admin-content th {
+    background: #f8f6f0;
+    color: #56564d;
+    font-weight: 700;
+    border-bottom: 1px solid #e8e4d9;
+}
+
+.admin-content tr:not(:last-child) td {
+    border-bottom: 1px solid #f1eee5;
 }
 
 /* ESTILOS PARA FORMULARIOS */

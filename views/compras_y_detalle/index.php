@@ -7,6 +7,7 @@
 </head>
 <body>
 <?php include __DIR__ . '/../navbar.php'; ?>
+<!-- <div class="admin-content"> -->
     <h1>Compras</h1>
     <p><a href="index.php?controlador=compra&accion=crear">Nueva compra</a>
        <a href="index.php">Inicio</a></p>
@@ -28,5 +29,6 @@
         </tr>
         <?php endwhile; ?>
     </table>
+<!-- </div> -->
 </body>
 </html>

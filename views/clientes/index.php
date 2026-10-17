@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
     <?php include __DIR__ . '/../navbar.php'; ?>
