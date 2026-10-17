@@ -9,6 +9,9 @@ class EmpleadoController {
     }
 
     public function crear() {
+        $db = Database::conectar();
+        $cargos = $db->query("SELECT IdCargo, NombreCargo FROM cargos ORDER BY NombreCargo");
+        $sucursales = $db->query("SELECT IdSucursal, Nombre FROM sucursales ORDER BY Nombre");
         if ($_POST) {
             Empleado::guardar(
                 $_POST['nombre'], 
@@ -33,6 +36,10 @@ class EmpleadoController {
             header("Location: index.php?controlador=empleado");
             exit();
         }
+
+        $db = Database::conectar();
+        $cargos = $db->query("SELECT IdCargo, NombreCargo FROM cargos ORDER BY NombreCargo");
+        $sucursales = $db->query("SELECT IdSucursal, Nombre FROM sucursales ORDER BY Nombre");
 
         if ($_POST) {
             Empleado::actualizar(

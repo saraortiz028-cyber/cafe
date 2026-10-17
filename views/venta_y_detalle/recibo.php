@@ -46,7 +46,10 @@
         <div class="recibo-actions">
             <button type="button" onclick="window.print()">Imprimir recibo</button>
             <a href="index.php?controlador=venta&accion=comprar">Hacer otra compra</a>
-            <a href="cafeteria.html">Volver al inicio</a>
+
+                <!-- Aque tambien esta lo de cafeteria.html -->
+
+            <a href="index.php">Volver al inicio</a>
         </div>
     </main>
 </body>

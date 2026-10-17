@@ -23,7 +23,8 @@
 				<td><?= htmlspecialchars($categoria->Descripcion, ENT_QUOTES, 'UTF-8') ?></td>
 				<td>
 					<a href="index.php?controlador=categoria&accion=editar&id=<?= urlencode($categoria->IdCategoria) ?>">Editar</a>
-					<a href="index.php?controlador=categoria&accion=eliminar&id=<?= urlencode($categoria->IdCategoria) ?>">Eliminar</a>
+					<a href="index.php?controlador=categoria&accion=eliminar&id=<?= urlencode($categoria->IdCategoria) ?>"
+                   onclick="return confirm('¿Eliminar esta categoría?')">Eliminar</a>
 				</td>
 			</tr>
 		<?php endwhile; ?>

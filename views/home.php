@@ -29,7 +29,7 @@
         <div class="hero-art">
             <div class="coffee-cup">
                 <div class="cup-rim"><span></span></div>
-                <div class="cup-body"><span class="cup-mark">☕</span></div>
+                <div class="cup-body"><span class="cup-mark"></span></div>
                 <div class="cup-handle"></div>
                 <div class="cup-saucer"></div>
             </div>

@@ -21,7 +21,8 @@
 				<td><?= htmlspecialchars(number_format((float) $configuracion->IVA, 2, '.', ''), ENT_QUOTES, 'UTF-8') ?></td>
 				<td>
 					<a href="index.php?controlador=configuracion&accion=editar&id=<?= urlencode((string) $configuracion->IdConfiguracion) ?>">Editar</a>
-					<a href="index.php?controlador=configuracion&accion=eliminar&id=<?= urlencode((string) $configuracion->IdConfiguracion) ?>">Eliminar</a>
+					<a href="index.php?controlador=configuracion&accion=eliminar&id=<?= urlencode((string) $configuracion->IdConfiguracion) ?>"
+                   onclick="return confirm('¿Eliminar esta configuración?')">Eliminar</a>
 				</td>
 			</tr>
 		<?php endwhile; ?>

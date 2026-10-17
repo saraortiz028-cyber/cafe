@@ -21,8 +21,8 @@
 				<td><?= htmlspecialchars($cargo->NombreCargo, ENT_QUOTES, 'UTF-8') ?></td>
 				<td>
 					<a href="index.php?controlador=cargo&accion=editar&id=<?= urlencode((string) $cargo->IdCargo) ?>">Editar</a>
-					<a href="index.php?controlador=cargo&accion=eliminar&id=<?= urlencode((string) $cargo->IdCargo) ?>">Eliminar</a>
-				</td>
+					<a href="index.php?controlador=cargo&accion=eliminar&id=<?= urlencode((string) $cargo->IdCargo) ?>"
+                   onclick="return confirm('¿Eliminar este cargo?')">Eliminar</a>
 			</tr>
 		<?php endwhile; ?>
 	</table>

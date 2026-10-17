@@ -32,14 +32,26 @@
         <input type="number" step="0.01" id="salario" name="salario" value="<?= 
         htmlspecialchars($empleado->Salario ?? '') ?>">
 
-        <label for="id_cargo">ID Cargo:</label>
-        <input type="number" id="id_cargo" name="id_cargo" value="<?= 
-        htmlspecialchars($empleado->IdCargo ?? '') ?>">
+        <label for="id_cargo">Cargo:</label>
+        <select id="id_cargo" name="id_cargo" required>
+            <option value="">Selecciona un cargo</option>
+            <?php while ($c = $cargos->fetch_object()): ?>
+                <option value="<?= (int) $c->IdCargo ?>" <?= ($empleado->IdCargo == $c->IdCargo) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($c->NombreCargo, ENT_QUOTES, 'UTF-8') ?>
+                </option>
+            <?php endwhile; ?>
+        </select>
 
-        <label for="id_sucursal">ID Sucursal:</label>
-        <input type="number" id="id_sucursal" name="id_sucursal" value="<?= 
-        htmlspecialchars($empleado->IdSucursal ?? '') ?>">
-
+        <label for="id_sucursal">Sucursal:</label>
+        <select id="id_sucursal" name="id_sucursal" required>
+            <option value="">Selecciona una sucursal</option>
+            <?php while ($s = $sucursales->fetch_object()): ?>
+                <option value="<?= (int) $s->IdSucursal ?>" <?= ($empleado->IdSucursal == $s->IdSucursal) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($s->Nombre, ENT_QUOTES, 'UTF-8') ?>
+                </option>
+            <?php endwhile; ?>
+        </select>
+        
         <button type="submit">Actualizar</button>
     </form>
 </body>

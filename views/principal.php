@@ -52,7 +52,7 @@ switch ($controlador) {
         break;
     default:
         // Vista principal o panel de navegación por enlace
-       require_once "controllers/HomeController.php";
+        require_once "controllers/HomeController.php";
     $homeController = new HomeController();
     $homeController->index();
     exit;

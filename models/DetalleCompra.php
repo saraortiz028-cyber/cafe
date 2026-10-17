@@ -34,13 +34,20 @@ class DetalleCompra {
         $db->begin_transaction();
 
         try {
+            $subtotal = $cantidad * $precioUnitario; 
+
             $stmt = $db->prepare(
                  "INSERT INTO detalle_compra (IdCompra, IdProducto, Cantidad, PrecioUnitario, SubTotal)
                   VALUES (?, ?, ?, ?, ?)"
             );
-              $subtotal = $cantidad * $precioUnitario;
-              $stmt->bind_param("iiidd", $idCompra, $idProducto, $cantidad, $precioUnitario, $subtotal);
+            $stmt->bind_param("iiidd", $idCompra, $idProducto, $cantidad, $precioUnitario, $subtotal);
             $stmt->execute();
+
+            // SUMA las existencias al inventario al realizar una compra
+            $stmtStock = $db->prepare("UPDATE productos SET Existencias = Existencias + ? WHERE IdProducto = ?");
+            $stmtStock->bind_param("ii", $cantidad, $idProducto);
+            $stmtStock->execute();
+
             self::actualizarTotal($db, $idCompra);
             $db->commit();
         } catch (Throwable $error) {
@@ -54,14 +61,16 @@ class DetalleCompra {
         $db->begin_transaction();
 
         try {
+            $subtotal = $cantidad * $precioUnitario; 
+
             $stmt = $db->prepare(
                 "UPDATE detalle_compra
-                                 SET IdProducto = ?, Cantidad = ?, PrecioUnitario = ?, SubTotal = ?
+                 SET IdProducto = ?, Cantidad = ?, PrecioUnitario = ?, SubTotal = ?
                  WHERE IdCompra = ? AND IdDetalleCompra = ?"
             );
-                        $subtotal = $cantidad * $precioUnitario;
-                        $stmt->bind_param("iiddii", $idProducto, $cantidad, $precioUnitario, $subtotal, $idCompra, $idDetalle);
+            $stmt->bind_param("iiddii", $idProducto, $cantidad, $precioUnitario, $subtotal, $idCompra, $idDetalle);
             $stmt->execute();
+            
             self::actualizarTotal($db, $idCompra);
             $db->commit();
         } catch (Throwable $error) {
