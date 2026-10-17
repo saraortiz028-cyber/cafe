@@ -66,7 +66,7 @@ a {
 
 /* lo de navegacion */
 
-.main-nav {
+/*.main-nav {
     display: flex;
     gap: 38px;
     color: #56564d;
@@ -75,6 +75,42 @@ a {
 
 .main-nav a:hover, .site-footer > a:last-child:hover {
     color: var(--orange);
+}*/
+
+
+/* Contenedor principal de la barra de navegación */
+.main-nav {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio de extremo a extremo */
+    align-items: center;
+    flex-wrap: wrap;                /* Si la pantalla es pequeña, bajan ordenados */
+    gap: 10px;                      /* Espacio mínimo por si se acomodan en varias filas */
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f6f0;            /* Fondo sutil opcional para enmarcar la barra */
+    border-radius: 6px;
+    border: 1px solid #e8e4d9;
+}
+
+/* Cada enlace se estira de manera uniforme ocupando el mismo espacio */
+.main-nav a {
+    flex: 1;                        /* Hace que todos crezcan y repartan el ancho disponible */
+    min-width: 130px;               /* Evita que se encojan demasiado en pantallas medianas */
+    text-align: center;             /* Centra el texto dentro de su espacio asignado */
+    background: #354A36;            /* Tu color verde de administración */
+    color: #ffffff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* Efecto al pasar el cursor */
+.main-nav a:hover {
+    background: #263B2B;            /* Un tono un poco más oscuro al hacer hover */
+    transform: translateY(-1px);
 }
 
 .header-action {
@@ -378,6 +414,72 @@ td a[href*="detalle"]:hover {
     border-color: #155724;
 }
 
+/* ESTILOS PARA FORMULARIOS */
+
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 35px;
+    background: #fffefa; /* Fondo color papel cálido */
+    border: 1px solid #e8e4d9;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a493c;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+form input[type="date"],
+form select {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 22px;
+    background-color: #ffffff;
+    border: 1px solid #c9c7bb;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input[type="date"]:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(46, 64, 51, 0.08);
+}
+
+/* Botón principal del formulario */
+form button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 20px;
+    background: var(--green);
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+form button[type="submit"]:hover {
+    background: #263b2b;
+    transform: translateY(-1px);
+}
 
 .art-label {
     position: absolute;

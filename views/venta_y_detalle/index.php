@@ -8,9 +8,9 @@
 <body>
 <?php include __DIR__ . '/../navbar.php'; ?>
     <h1>Ventas</h1>
-    <p><a href="index.php?controlador=venta&accion=comprar">Nueva compra</a>
-       <a href="index.php?controlador=venta&accion=crear">Nueva venta manual</a>
-       <a href="index.php">Inicio</a></p>
+    <p><a href="index.php?controlador=venta&accion=comprar" class="button button-dark">Nueva compra</a>
+       <a href="index.php?controlador=venta&accion=crear" class="button button-dark">Nueva venta manual</a>
+       <a href="index.php" class="button button-dark">Inicio</a></p>
     <table>
         <tr>
             <th>ID</th><th>Fecha</th><th>Cliente (ID)</th><th>Empleado (ID)</th>
