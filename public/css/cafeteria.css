@@ -64,6 +64,8 @@ a {
     font-size: 13px;
 }
 
+/* lo de navegacion */
+
 .main-nav {
     display: flex;
     gap: 38px;
@@ -268,6 +270,114 @@ h1 em, h2 em {
     color: var(--orange);
     font-size: 20px;
 }
+
+
+/* ESTILOS PARA TABLAS DE DATOS */
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    background-color: #fffefa; /* Tono cálido acorde a var(--paper) / cards */
+    border: 1px solid #e8e4d9;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 13px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Encabezado de la Tabla */
+thead {
+    background-color: var(--green); /* Color verde institucional de tu CSS */
+    color: #ffffff;
+}
+
+th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--green);
+}
+
+/* Cuerpo de la Tabla */
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #e8e4d9; /* Línea divisoria suave */
+}
+
+/* Efecto Hover en las filas */
+tbody tr:hover {
+    background-color: #f6f3ea; /* Tono beige/crema suave al pasar el cursor */
+}
+
+td {
+    padding: 14px 18px;
+    color: #4a493c;
+    vertical-align: middle;
+}
+
+/* Columna de Acciones (Botones Detalles / Editar / Eliminar) */
+td.acciones, td:last-child {
+    white-space: nowrap;
+}
+
+/* Ajustes para botones dentro de la tabla al usar enlaces */
+td a.button-dark, td a.button-outline, 
+td a[href*="eliminar"], td a[href*="editar"], td a[href*="detalle"] {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 3px;
+    margin-right: 5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* Botón Editar */
+td a[href*="editar"] {
+    background: transparent;
+    border: 1px solid #c9c7bb;
+    color: var(--green);
+}
+
+td a[href*="editar"]:hover {
+    background: var(--green);
+    color: #ffffff;
+}
+
+/* Botón Eliminar */
+td a[href*="eliminar"] {
+    background: #a83232;
+    color: #ffffff;
+    border: 1px solid #a83232;
+}
+
+td a[href*="eliminar"]:hover {
+    background: #822424;
+    border-color: #822424;
+}
+
+/* Botón Detalles */
+td a[href*="detalle"] {
+    background: #1e7e34;
+    color: #ffffff;
+    border: 1px solid #1e7e34;
+}
+
+td a[href*="detalle"]:hover {
+    background: #155724;
+    border-color: #155724;
+}
+
 
 .art-label {
     position: absolute;

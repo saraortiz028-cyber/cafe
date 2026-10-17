@@ -24,7 +24,7 @@
                     <div>
                         <h2><?= htmlspecialchars($producto['nombre'], ENT_QUOTES, 'UTF-8') ?></h2>
                         <p><?= htmlspecialchars($producto['descripcion'], ENT_QUOTES, 'UTF-8') ?></p>
-                        <strong>$<?= number_format($producto['precio'], 2) ?> MXN</strong>
+                        <strong>$<?= number_format($producto['precio'], 2) ?> NIO</strong>
                     </div>
                     <label for="producto-<?= (int) $idProducto ?>">Cantidad</label>
                     <input class="cantidad-producto" type="number"
@@ -70,7 +70,7 @@
             <?php endwhile; ?>
         </select>
 
-        <p class="compra-total">Total estimado: <strong data-compra-total>$0.00 MXN</strong></p>
+        <p class="compra-total">Total estimado: <strong data-compra-total>$0.00 NIO</strong></p>
         <button type="submit">Confirmar compra y generar recibo</button>
     </form>
     <script src="public/js/compra.js" defer></script>
