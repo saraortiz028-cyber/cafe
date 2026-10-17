@@ -33,7 +33,8 @@
             <td><?= htmlspecialchars((string) ($c->FechaRegistro ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
             <td>
                 <a href="index.php?controlador=cliente&accion=editar&id=<?= (int) $c->IdCliente ?>">Editar</a>
-                <a href="index.php?controlador=cliente&accion=eliminar&id=<?= (int) $c->IdCliente ?>" onclick="return confirm('¿Eliminar este cliente?')">Eliminar</a>
+                <a href="index.php?controlador=cliente&accion=eliminar&id=<?= (int) $c->IdCliente ?>" 
+                 onclick="return confirm('¿Eliminar este cliente?')">Eliminar</a>
             </td>
         </tr>
         <?php endwhile; ?>

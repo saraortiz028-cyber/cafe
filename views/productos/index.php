@@ -29,7 +29,8 @@
             <td><?= $p->NombreCategoria ?? 'Sin Categoría' ?></td>
             <td>
                 <a href="index.php?controlador=producto&accion=editar&id=<?= $p->IdProducto ?>">Editar</a>
-                <a href="index.php?controlador=producto&accion=eliminar&id=<?= $p->IdProducto ?>">Eliminar</a>
+                <a href="index.php?controlador=producto&accion=eliminar&id=<?= (int) $p->IdProducto ?>"
+                   onclick="return confirm('¿Eliminar este producto?')">Eliminar</a>
             </td>
         </tr>
         <?php endwhile; ?>

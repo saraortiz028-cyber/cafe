@@ -26,7 +26,8 @@
                 <td><?= htmlspecialchars($sucursal->Direccion, ENT_QUOTES, 'UTF-8') ?></td>
                 <td>
                     <a href="index.php?controlador=sucursal&accion=editar&id=<?= (int) $sucursal->IdSucursal ?>">Editar</a>
-                    <a href="index.php?controlador=sucursal&accion=eliminar&id=<?= (int) $sucursal->IdSucursal ?>" onclick="return confirm('¿Eliminar esta sucursal?')">Eliminar</a>
+                    <a href="index.php?controlador=sucursal&accion=eliminar&id=<?= (int) $sucursal->IdSucursal ?>" 
+                     onclick="return confirm('¿Eliminar esta sucursal?')">Eliminar</a>
                 </td>
             </tr>
         <?php endwhile; ?>

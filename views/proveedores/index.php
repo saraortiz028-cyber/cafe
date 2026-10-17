@@ -27,7 +27,8 @@
 				<td><?= htmlspecialchars($proveedor->Direccion ?? '', ENT_QUOTES, 'UTF-8') ?></td>
 				<td>
 					<a href="index.php?controlador=proveedor&accion=editar&id=<?= urlencode((string) $proveedor->IdProveedor) ?>">Editar</a>
-					<a href="index.php?controlador=proveedor&accion=eliminar&id=<?= urlencode((string) $proveedor->IdProveedor) ?>">Eliminar</a>
+					<a href="index.php?controlador=proveedor&accion=eliminar&id=<?= urlencode((string) $proveedor->IdProveedor) ?>"
+                   onclick="return confirm('¿Eliminar este proveedor?')">Eliminar</a>
 				</td>
 			</tr>
 		<?php endwhile; ?>

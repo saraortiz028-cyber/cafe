@@ -37,7 +37,8 @@
             <td><?= $e->IdSucursal ?></td>
             <td>
                 <a href="index.php?controlador=empleado&accion=editar&id=<?= $e->IdEmpleado ?>">Editar</a>
-                <a href="index.php?controlador=empleado&accion=eliminar&id=<?= $e->IdEmpleado ?>">Eliminar</a>
+                <a href="index.php?controlador=empleado&accion=eliminar&id=<?= (int) $e->IdEmpleado ?>"
+                   onclick="return confirm('¿Eliminar este empleado?')">Eliminar</a>
             </td>
         </tr>
         <?php endwhile; ?>
