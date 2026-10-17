@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="public/css/estilo.css">
 </head>
 <body class="compra-page">
-    <p><a href="cafeteria.html">← Volver a Café Aroma</a></p>
+
+<!-- Aqui estaba el cafeteria.html -->
+    <p><a href="index.php">← Volver a Café Aroma</a></p>
     <h1>Arma tu pedido</h1>
     <p>Elige tus favoritos. El total se guarda en la venta y al terminar aparece tu recibo.</p>
 
