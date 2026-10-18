@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuevo Cliente</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
 
-    <h1>Nuevo Cliente</h1>
+    <h1 style="text-align: center;">Nuevo Cliente</h1>
     <form method="POST">
         <label for="nombres">Nombres:</label>
         <input type="text" id="nombres" name="nombres" placeholder="Nombres" required>

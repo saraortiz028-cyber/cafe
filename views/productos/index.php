@@ -8,7 +8,7 @@
 <body>
 <?php include __DIR__ . '/../navbar.php'; ?>
     <h1>Productos</h1>
-    <a href="index.php?controlador=producto&accion=crear">Nuevo Producto</a>
+    <a href="index.php?controlador=producto&accion=crear" class="button button-dark">Nuevo Producto</a>
     <table>
         <tr>
             <th>ID</th>

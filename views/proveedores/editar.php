@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Editar Proveedor</title>
-	<link rel="stylesheet" href="public/css/estilo.css">
+	<link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
-	<h1>Editar Proveedor</h1>
+	<h1 style="text-align: center;">Editar Proveedor</h1>
 	<form method="POST">
 		<label for="Nombre">Nombre:</label>
 		<input type="text" id="Nombre" name="Nombre" maxlength="100" value="<?= htmlspecialchars($proveedor->Nombre, ENT_QUOTES, 'UTF-8') ?>" required>

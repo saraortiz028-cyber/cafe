@@ -9,7 +9,7 @@
     <?php include __DIR__ . '/../navbar.php'; ?>
     
     <h1>Clientes</h1>
-    <p><a href="index.php?controlador=cliente&accion=crear">Nuevo Cliente</a></p>
+    <p><a href="index.php?controlador=cliente&accion=crear" class="button button-dark">Nuevo Cliente</a></p>
     
     <table>
         <tr>

@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Editar Producto</title>    <link rel="stylesheet" href="public/css/cafeteria.css">
+    <title>Editar Producto</title>
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body class="order-section">
 
