@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ordenar | Café Aroma</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body class="compra-page">
 
 <!-- Aqui estaba el cafeteria.html -->
-    <p><a href="index.php">← Volver a Café Aroma</a></p>
-    <h1>Arma tu pedido</h1>
-    <p>Elige tus favoritos. El total se guarda en la venta y al terminar aparece tu recibo.</p>
+<div style="margin-top: 20px; text-align: center;">
+                     <a href="index.php" class="button button-dark">Volver a Café Aroma</a>
+              </div>
+    
+    <h1 style="text-align: center;">Arma tu pedido</h1>
+    <p style="text-align: center;">Elige tus favoritos. El total se guarda en la venta y al terminar aparece tu recibo.</p>
 
     <?php if ($error !== null): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>

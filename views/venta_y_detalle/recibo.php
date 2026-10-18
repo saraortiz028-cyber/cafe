@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recibo de venta #<?= (int) $venta->IdVenta ?> | Café Aroma</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body class="recibo-page">
     <main class="recibo">
@@ -38,18 +38,17 @@
                 <?php endwhile; ?>
             </tbody>
             <tfoot>
-                <tr><th colspan="3">Total</th><th>$<?= number_format((float) $venta->Total, 2) ?> MXN</th></tr>
+                <tr><th colspan="3">Total</th><th>$<?= number_format((float) $venta->Total, 2) ?> NIO</th></tr>
             </tfoot>
         </table>
 
         <p class="recibo-gracias">¡Gracias por tu compra! Esperamos verte pronto.</p>
         <div class="recibo-actions">
-            <button type="button" onclick="window.print()">Imprimir recibo</button>
-            <a href="index.php?controlador=venta&accion=comprar">Hacer otra compra</a>
+            <button type="button" onclick="window.print()" >Imprimir recibo</button>
+            <a href="index.php?controlador=venta&accion=comprar" class="button button-dark">Hacer otra compra</a>
 
                 <!-- Aque tambien esta lo de cafeteria.html -->
-
-            <a href="index.php">Volver al inicio</a>
+            <a href="index.php" class="button button-dark">Volver al inicio</a>
         </div>
     </main>
 </body>

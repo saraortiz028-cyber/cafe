@@ -325,7 +325,7 @@ table {
 
 /* Encabezado de la Tabla */
 thead {
-    background-color: #8bda94 ; /* Tono verde muy suave */
+    background-color: #949894 ; /* Tono verde muy suave */
     color: #ffffff;
 }
 
@@ -535,6 +535,141 @@ form button[type="submit"]:hover {
     line-height: 1.8;
     text-align: right;
 }
+
+/* Pagina de compras */
+/* Unifica la fuente en controles de formulario */
+input, select, button, textarea {
+    font-family: inherit;
+}
+
+.compra-page {
+    max-width: 1000px;
+}
+
+.compra-form {
+    display: block;
+    max-width: none;
+}
+
+.compra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.compra-card {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+    border: 1px solid #d9e2da;
+    border-radius: 8px;
+    background: #fbfdfb;
+}
+
+.compra-card h2 {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-size: 20px;
+}
+
+
+
+.compra-card p {
+    min-height: 38px;
+    margin: 0 0 8px;
+    color: #59675e;
+}
+
+.compra-card strong,
+.compra-total strong {
+    color: #24583d;
+}
+
+.compra-card input,
+.compra-form select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #d9e2da;
+    border-radius: 4px;
+}
+
+.compra-total {
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.compra-form > button {
+    min-height: 44px;
+    padding: 10px 18px;
+}
+
+.recibo-info {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.recibo-page {
+    max-width: 760px;
+    background: #fff;
+}
+
+.recibo {
+    padding: 28px;
+    border: 1px solid #d9e2da;
+    background: #fff;
+}
+
+.recibo-header {
+    padding-bottom: 16px;
+    border-bottom: 1px dashed #bdcbbf;
+    text-align: center;
+}
+
+.recibo-header h1 {
+    margin: 0;
+}
+
+.recibo-header p {
+    margin: 6px 0;
+}
+
+.recibo-marca {
+    color: #26734d;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.recibo-gracias {
+    margin: 24px 0;
+    text-align: center;
+}
+
+.recibo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.recibo-actions button {
+    min-height: 38px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: #26734d;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.recibo-actions a {
+    display: inline-flex;
+    align-items: center;
+}
+
 /* dibujo de una taza de café */
 .coffee-cup {
     position: absolute;
