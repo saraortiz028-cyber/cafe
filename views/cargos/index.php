@@ -9,6 +9,7 @@
 <?php include __DIR__ . '/../navbar.php'; ?>
 	<h1>Cargos</h1>
 	<a href="index.php?controlador=cargo&accion=crear" class="button button-dark">Nuevo Cargo</a>
+	<a href="index.php" class="button button-dark">Inicio</a></p>
 	<table>
 		<tr>
 			<th>ID</th>

@@ -9,8 +9,8 @@
     <?php include __DIR__ . '/../navbar.php'; ?>
     
     <h1>Clientes</h1>
-    <p><a href="index.php?controlador=cliente&accion=crear" class="button button-dark">Nuevo Cliente</a></p>
-    
+    <a href="index.php?controlador=cliente&accion=crear" class="button button-dark">Nuevo Cliente</a>
+    <a href="index.php" class="button button-dark">Inicio</a></p>
     <table>
         <tr>
             <th>ID</th>
