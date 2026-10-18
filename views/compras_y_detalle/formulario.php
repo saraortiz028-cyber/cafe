@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title><?= $compra ? 'Editar compra' : 'Nueva compra' ?></title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
-    <h1><?= $compra ? 'Editar compra' : 'Nueva compra' ?></h1>
+    <h1 style="text-align: center;"><?= $compra ? 'Editar compra' : 'Nueva compra' ?></h1>
        <?php if ($error !== null): ?>
               <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
        <?php endif; ?>
@@ -32,8 +32,10 @@
                             </option>
                      <?php endwhile; ?>
               </select>
-        <button type="submit"><?= $compra ? 'Actualizar' : 'Guardar y agregar detalles' ?></button>
-    </form>
-    <p><a href="index.php?controlador=compra&accion=index">Volver a compras</a></p>
+       <button type="submit"><?= $compra ? 'Actualizar' : 'Guardar y agregar detalles' ?></button>
+       </form>
+       <div style="margin-top: 20px; text-align: center;">
+       <a href="index.php?controlador=compra&accion=index" class="button button-dark">Volver a compras</a></p>
+       </div>
 </body>
 </html>
