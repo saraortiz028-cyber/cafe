@@ -22,7 +22,7 @@
             </p>
             <div class="hero-actions">
                 <a href="index.php?controlador=producto&accion=index" class="button button-dark">Gestionar Productos</a>
-                <a href="index.php?controlador=venta&accion=index" class="text-link">Ver Ventas<span>&rarr;</span></a>
+                <a href="index.php?controlador=venta&accion=index" class="button button-dark">Ver Ventas<span>&rarr;</span></a>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
                     <span class="card-number">01</span>
                     <h3>Productos</h3>
                     <p>Control de stock, precios y descripción de artículos.</p>
-                    <a href="index.php?controlador=producto&accion=index" class="text-link">Entrar<span>&rarr;</span></a>
+                    <a href="index.php?controlador=producto&accion=index" class="button button-dark">Entrar<span>&rarr;</span></a>
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
                     <span class="card-number">02</span>
                     <h3>Categorías</h3>
                     <p>Organiza los productos por categorías y tipos.</p>
-                    <a href="index.php?controlador=categoria&accion=index" class="text-link">Entrar<span>&rarr;</span></a>
+                    <a href="index.php?controlador=categoria&accion=index" class="button button-dark">Entrar<span>&rarr;</span></a>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                     <span class="card-number">03</span>
                     <h3>Clientes</h3>
                     <p>Base de datos y registro de clientes frecuentes.</p>
-                    <a href="index.php?controlador=cliente&accion=index" class="text-link">Entrar<span>&rarr;</span></a>
+                    <a href="index.php?controlador=cliente&accion=index" class="button button-dark">Entrar<span>&rarr;</span></a>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                     <span class="card-number">04</span>
                     <h3>Empleados</h3>
                     <p>Gestión de personal y datos del equipo.</p>
-                    <a href="index.php?controlador=empleado&accion=index" class="text-link">Entrar<span>&rarr;</span></a>
+                    <a href="index.php?controlador=empleado&accion=index" class="button button-dark">Entrar<span>&rarr;</span></a>
                 </div>
             </div>
 
@@ -87,7 +87,7 @@
                     <span class="card-number">05</span>
                     <h3>Sucursales</h3>
                     <p>Ubicaciones y sucursales de la cafetería.</p>
-                    <a href="index.php?controlador=sucursal&accion=index" class="text-link">Entrar<span>&rarr;</span></a>
+                    <a href="index.php?controlador=sucursal&accion=index" class="button button-dark">Entrar<span>&rarr;</span></a>
                 </div>
             </div>
 
@@ -96,7 +96,7 @@
                     <span class="card-number">06</span>
                     <h3>Proveedores</h3>
                     <p>Gestión de proveedores y compras de insumos.</p>
-                    <a href="index.php?controlador=proveedor&accion=index" class="text-link">Entrar<span>&rarr;</span></a>
+                    <a href="index.php?controlador=proveedor&accion=index" class="button button-dark">Entrar<span>&rarr;</span></a>
                 </div>
             </div>
         </div>

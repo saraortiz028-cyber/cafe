@@ -1,30 +1,11 @@
-<link rel="stylesheet" href="/Cafeteria/public/css/cafeteria.css">
 <?php
 require_once "config/database.php";
 
 $controlador = $_GET['controlador'] ?? null;
 $accion = $_GET['accion'] ?? 'index';
 
-
-
 if ($controlador === null) {
-    require_once "models/Cliente.php";
-    require_once "models/Empleado.php";
-    require_once "models/Categorias.php";
-    require_once "models/Productos.php";
-    require_once "models/Cargo.php";
-    require_once "models/Proveedor.php";
-    require_once "models/Configuracion.php";
-    
-    $clientes = Cliente::obtenerTodos();
-    $empleados = Empleado::obtenerTodos();
-    $categorias = Categoria::obtenerTodos();
-    $productos = Producto::obtenerTodos();
-    $cargos = Cargo::obtenerTodos();
-    $proveedores = Proveedor::obtenerTodos();
-    $configuraciones = Configuracion::obtenerTodos();
-    
-    require_once "views/principal.php";
+    require_once "views/home.php";
     exit;
 }
 
@@ -86,5 +67,10 @@ else if ($controlador == 'venta') {
     require_once "controllers/Venta_y_DetalleController.php";
     $controladorInstanciado = new VentaController();
     $controladorInstanciado->$accion();
+}
+
+else {
+    http_response_code(404);
+    echo "Controlador no encontrado";
 }
 ?>
