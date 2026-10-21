@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Empleado</title>
+    <title><?= $editando ? 'Editar Empleado' : 'Nuevo Empleado' ?></title>
     <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
-    <h1 style="text-align: center;">Editar Empleado</h1>
+
+<div class="section-wrap">
+
+<h1 style="text-align: center;">
+    <?= $editando ? 'Editar Empleado' : 'Nuevo Empleado' ?>
+</h1>
+
+<?php if ($error !== null): ?>
+    <p role="alert">
+        <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+    </p>
+<?php endif; ?>
+
     <form method="POST">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" value="<?= 
@@ -34,25 +46,37 @@
 
         <label for="id_cargo">Cargo:</label>
         <select id="id_cargo" name="id_cargo" required>
-            <option value="">Selecciona un cargo</option>
+        <option value="">Selecciona un cargo</option>
             <?php while ($c = $cargos->fetch_object()): ?>
-                <option value="<?= (int) $c->IdCargo ?>" <?= ($empleado->IdCargo == $c->IdCargo) ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($c->NombreCargo, ENT_QUOTES, 'UTF-8') ?>
-                </option>
-            <?php endwhile; ?>
+        <option
+            value="<?= (int) $c->IdCargo ?>"
+            <?= (($empleado->IdCargo ?? $empleado->id_cargo ?? '') == $c->IdCargo) ? 'selected' : '' ?>>
+            <?= htmlspecialchars($c->NombreCargo, ENT_QUOTES, 'UTF-8') ?>
+        </option>
+
+        <?php endwhile; ?>
+
         </select>
+
 
         <label for="id_sucursal">Sucursal:</label>
         <select id="id_sucursal" name="id_sucursal" required>
-            <option value="">Selecciona una sucursal</option>
+        <option value="">Selecciona una sucursal</option>
             <?php while ($s = $sucursales->fetch_object()): ?>
-                <option value="<?= (int) $s->IdSucursal ?>" <?= ($empleado->IdSucursal == $s->IdSucursal) ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($s->Nombre, ENT_QUOTES, 'UTF-8') ?>
-                </option>
-            <?php endwhile; ?>
+        <option
+            value="<?= (int) $s->IdSucursal ?>"
+            <?= (($empleado->IdSucursal ?? $empleado->id_sucursal ?? '') == $s->IdSucursal) ? 'selected' : '' ?>>
+            <?= htmlspecialchars($s->Nombre, ENT_QUOTES, 'UTF-8') ?>
+        </option>
+
+        <?php endwhile; ?>
+
         </select>
         
-        <button type="submit">Actualizar</button>
+        <button type="submit">
+        <?= $editando ? 'Actualizar' : 'Guardar' ?>
+    </button>
+    
     </form>
 </body>
 </html>
