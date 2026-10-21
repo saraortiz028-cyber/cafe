@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Compras</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
 <?php include __DIR__ . '/../navbar.php'; ?>
+<!-- <div class="admin-content"> -->
     <h1>Compras</h1>
-    <p><a href="index.php?controlador=compra&accion=crear">Nueva compra</a>
-       <a href="index.php">Inicio</a></p>
+    <p><a href="index.php?controlador=compra&accion=crear" class="button button-dark">Nueva compra</a>
+       <a href="index.php" class="button button-dark">Inicio</a></p>
     <table>
         <tr><th>ID</th><th>Fecha</th><th>Proveedor</th><th>Sucursal</th><th>Total</th><th>Acciones</th></tr>
         <?php while ($compra = $compras->fetch_object()): ?>
@@ -28,5 +29,6 @@
         </tr>
         <?php endwhile; ?>
     </table>
+<!-- </div> -->
 </body>
 </html>

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
     <?php include __DIR__ . '/../navbar.php'; ?>
     
     <h1>Clientes</h1>
-    <p><a href="index.php?controlador=cliente&accion=crear">Nuevo Cliente</a></p>
-    
+    <a href="index.php?controlador=cliente&accion=crear" class="button button-dark">Nuevo Cliente</a>
+    <a href="index.php" class="button button-dark">Inicio</a></p>
     <table>
         <tr>
             <th>ID</th>

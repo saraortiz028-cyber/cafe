@@ -12,9 +12,9 @@ function updatePurchaseTotal() {
         return sum + (Number.isInteger(quantity) && quantity > 0 ? quantity * price : 0);
     }, 0);
 
-    totalElement.textContent = total.toLocaleString('es-MX', {
+    totalElement.textContent = total.toLocaleString('es-NI', {
         style: 'currency',
-        currency: 'MXN'
+        currency: 'NIO'
     });
 }
 

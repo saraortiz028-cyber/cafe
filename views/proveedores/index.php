@@ -3,12 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Proveedores</title>
-	<link rel="stylesheet" href="public/css/estilo.css">
+	<link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
 <?php include __DIR__ . '/../navbar.php'; ?>
 	<h1>Proveedores</h1>
-	<a href="index.php?controlador=proveedor&accion=crear">Nuevo Proveedor</a>
+	<a href="index.php?controlador=proveedor&accion=crear" class="button button-dark">Nuevo Proveedor</a>
+	<a href="index.php" class="button button-dark">Inicio</a></p>
 	<table>
 		<tr>
 			<th>ID</th>

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Editar artículo de venta</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
     <h1>Editar artículo de la venta #<?= (int) $venta->IdVenta ?></h1>
     <?php if (isset($error)): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
     <?php endif; ?>
+    
     <form method="POST">
         <label for="id_producto">Producto:</label>
         <select id="id_producto" name="id_producto" required>

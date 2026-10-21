@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ordenar | Café Aroma</title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body class="compra-page">
 
 <!-- Aqui estaba el cafeteria.html -->
-    <p><a href="index.php">← Volver a Café Aroma</a></p>
-    <h1>Arma tu pedido</h1>
-    <p>Elige tus favoritos. El total se guarda en la venta y al terminar aparece tu recibo.</p>
+<div style="margin-top: 20px; text-align: center;">
+                     <a href="index.php" class="button button-dark">Volver a Café Aroma</a>
+              </div>
+    
+    <h1 style="text-align: center;">Arma tu pedido</h1>
+    <p style="text-align: center;">Elige tus favoritos. El total se guarda en la venta y al terminar aparece tu recibo.</p>
 
     <?php if ($error !== null): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
@@ -24,7 +27,7 @@
                     <div>
                         <h2><?= htmlspecialchars($producto['nombre'], ENT_QUOTES, 'UTF-8') ?></h2>
                         <p><?= htmlspecialchars($producto['descripcion'], ENT_QUOTES, 'UTF-8') ?></p>
-                        <strong>$<?= number_format($producto['precio'], 2) ?> MXN</strong>
+                        <strong>$<?= number_format($producto['precio'], 2) ?> NIO</strong>
                     </div>
                     <label for="producto-<?= (int) $idProducto ?>">Cantidad</label>
                     <input class="cantidad-producto" type="number"
@@ -70,7 +73,7 @@
             <?php endwhile; ?>
         </select>
 
-        <p class="compra-total">Total estimado: <strong data-compra-total>$0.00 MXN</strong></p>
+        <p class="compra-total">Total estimado: <strong data-compra-total>$0.00 NIO</strong></p>
         <button type="submit">Confirmar compra y generar recibo</button>
     </form>
     <script src="public/js/compra.js" defer></script>

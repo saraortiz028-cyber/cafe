@@ -6,33 +6,47 @@ class CargoController {
 		$cargos = Cargo::obtenerTodos();
 		require "views/cargos/index.php";
 	}
-
+ 
 	public function crear() {
-		if ($_POST) {
-			Cargo::guardar($_POST['NombreCargo']);
-			header("Location: index.php?controlador=cargo&accion=index");
-			exit;
-		}
-		require "views/cargos/crear.php";
-	}
+    $editando = false;
+    $cargo = null;
+    $error = null;
 
-	public function editar() {
-		$id = $_GET['id'] ?? null;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        Cargo::guardar($_POST['NombreCargo']);
+        header("Location: index.php?controlador=cargo&accion=index");
+        exit;
+    }
 
-		if (!$id) {
-			header("Location: index.php?controlador=cargo&accion=index");
-			exit;
-		}
+    require "views/cargos/formulario.php";
+}
 
-		if ($_POST) {
-			Cargo::actualizar($id, $_POST['NombreCargo']);
-			header("Location: index.php?controlador=cargo&accion=index");
-			exit;
-		}
+public function editar() {
+    $id = $_GET['id'] ?? null;
 
-		$cargo = Cargo::obtenerPorId($id);
-		require "views/cargos/editar.php";
-	}
+    if (!$id) {
+        header("Location: index.php?controlador=cargo&accion=index");
+        exit;
+    }
+
+    $cargo = Cargo::obtenerPorId($id);
+
+    if (!$cargo) {
+        header("Location: index.php?controlador=cargo&accion=index");
+        exit;
+    }
+
+    $editando = true;
+    $error = null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        Cargo::actualizar($id, $_POST['NombreCargo']);
+        header("Location: index.php?controlador=cargo&accion=index");
+        exit;
+    }
+
+    require "views/cargos/formulario.php";
+}
 
 	public function eliminar() {
 		$id = $_GET['id'] ?? null;

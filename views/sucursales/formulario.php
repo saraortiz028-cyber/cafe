@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title><?= $sucursal ? 'Editar sucursal' : 'Nueva sucursal' ?></title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
-<body>
-    <h1><?= $sucursal ? 'Editar sucursal' : 'Nueva sucursal' ?></h1>
+<body class="order-section">
+    <div class="section-wrap">
+    <h1 style="text-align: center;"><?= $sucursal ? 'Editar sucursal' : 'Nueva sucursal' ?></h1>
     <?php if ($error !== null): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
     <?php endif; ?>
@@ -19,6 +20,9 @@
                value="<?= htmlspecialchars($sucursal->Direccion ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
         <button type="submit"><?= $sucursal ? 'Actualizar' : 'Guardar' ?></button>
     </form>
-    <p><a href="index.php?controlador=sucursal&accion=index">Volver a sucursales</a></p>
+    <div style="margin-top: 20px; text-align: center;">
+    <a href="index.php?controlador=sucursal&accion=index" class="button button-dark">Volver a sucursales</a>
+    </div>
+</div>
 </body>
 </html>

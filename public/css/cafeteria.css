@@ -64,7 +64,9 @@ a {
     font-size: 13px;
 }
 
-.main-nav {
+/* lo de navegacion */
+
+/*.main-nav {
     display: flex;
     gap: 38px;
     color: #56564d;
@@ -73,6 +75,42 @@ a {
 
 .main-nav a:hover, .site-footer > a:last-child:hover {
     color: var(--orange);
+}*/
+
+
+/* Contenedor principal de la barra de navegación */
+.main-nav {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio de extremo a extremo */
+    align-items: center;
+    flex-wrap: wrap;                /* Si la pantalla es pequeña, bajan ordenados */
+    gap: 10px;                      /* Espacio mínimo por si se acomodan en varias filas */
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f6f0;            /* Fondo sutil opcional para enmarcar la barra */
+    border-radius: 6px;
+    border: 1px solid #e8e4d9;
+}
+
+/* Cada enlace se estira de manera uniforme ocupando el mismo espacio */
+.main-nav a {
+    flex: 1;                        /* Hace que todos crezcan y repartan el ancho disponible */
+    min-width: 130px;               /* Evita que se encojan demasiado en pantallas medianas */
+    text-align: center;             /* Centra el texto dentro de su espacio asignado */
+    background: #354A36;            /* Tu color verde de administración */
+    color: #ffffff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* Efecto al pasar el cursor */
+.main-nav a:hover {
+    background: #263B2B;            /* Un tono un poco más oscuro al hacer hover */
+    transform: translateY(-1px);
 }
 
 .header-action {
@@ -269,6 +307,222 @@ h1 em, h2 em {
     font-size: 20px;
 }
 
+
+/* ESTILOS PARA TABLAS DE DATOS */
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    background-color: #fffefa; /* Tono cálido acorde a var(--paper) / cards */
+    border: 1px solid #e8e4d9;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 13px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Encabezado de la Tabla */
+thead {
+    background-color: #949894 ; /* Tono verde muy suave */
+    color: #ffffff;
+}
+
+th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--green);
+}
+
+/* Cuerpo de la Tabla */
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #e8e4d9; /* Línea divisoria suave */
+}
+
+/* Efecto Hover en las filas */
+tbody tr:hover {
+    background-color: #f6f3ea; /* Tono beige/crema suave al pasar el cursor */
+}
+
+td {
+    padding: 14px 18px;
+    color: #000000;
+    vertical-align: middle;
+}
+
+/* Columna de Acciones (Botones Detalles / Editar / Eliminar) */
+td.acciones, td:last-child {
+    white-space: nowrap;
+}
+
+/* Ajustes para botones dentro de la tabla al usar enlaces */
+td a.button-dark, td a.button-outline, 
+td a[href*="eliminar"], td a[href*="editar"], td a[href*="detalle"] {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 3px;
+    margin-right: 5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* Botón Editar */
+td a[href*="editar"] {
+    background: transparent;
+    border: 1px solid #c9c7bb;
+    color: var(--green);
+}
+
+td a[href*="editar"]:hover {
+    background: var(--green);
+    color: #ffffff;
+}
+
+/* Botón Eliminar */
+td a[href*="eliminar"] {
+    background: #a83232;
+    color: #ffffff;
+    border: 1px solid #a83232;
+}
+
+td a[href*="eliminar"]:hover {
+    background: #822424;
+    border-color: #822424;
+}
+
+/* Botón Detalles */
+td a[href*="detalle"] {
+    background: #1e7e34;
+    color: #ffffff;
+    border: 1px solid #1e7e34;
+}
+
+td a[href*="detalle"]:hover {
+    background: #155724;
+    border-color: #155724;
+}
+
+/* Contenedor general para las vistas de administración */
+.admin-content {
+    max-width: 1500px;     /* Ancho máximo para que no se extienda por toda la pantalla */
+    margin: 40px auto;     /* Centra automáticamente el bloque horizontalmente */
+    padding: 0 20px;       /* Margen de seguridad a los lados en pantallas pequeñas */
+}
+
+/* Estilo general para las tablas de administración */
+.admin-content table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #eeece4;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.admin-content th, 
+.admin-content td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 11px;
+}
+
+.admin-content th {
+    background: #f8f6f0;
+    color: #56564d;
+    font-weight: 700;
+    border-bottom: 1px solid #e8e4d9;
+}
+
+.admin-content tr:not(:last-child) td {
+    border-bottom: 1px solid #f1eee5;
+}
+
+/* ESTILOS PARA FORMULARIOS */
+
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 35px;
+    background: #fffefa; /* Fondo color papel cálido */
+    border: 1px solid #e8e4d9;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a493c;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form input[type="date"],
+form select {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 22px;
+    background-color: #ffffff;
+    border: 1px solid #c9c7bb;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="email"]:focus,
+form input[type="date"]:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(46, 64, 51, 0.08);
+}
+
+/* Botón principal del formulario */
+form button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 20px;
+    background: var(--green);
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+form button[type="submit"]:hover {
+    background: #263b2b;
+    transform: translateY(-1px);
+}
+
 .art-label {
     position: absolute;
     top: 15%;
@@ -281,6 +535,141 @@ h1 em, h2 em {
     line-height: 1.8;
     text-align: right;
 }
+
+/* Pagina de compras */
+/* Unifica la fuente en controles de formulario */
+input, select, button, textarea {
+    font-family: inherit;
+}
+
+.compra-page {
+    max-width: 1000px;
+}
+
+.compra-form {
+    display: block;
+    max-width: none;
+}
+
+.compra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.compra-card {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+    border: 1px solid #d9e2da;
+    border-radius: 8px;
+    background: #fbfdfb;
+}
+
+.compra-card h2 {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-size: 20px;
+}
+
+
+
+.compra-card p {
+    min-height: 38px;
+    margin: 0 0 8px;
+    color: #59675e;
+}
+
+.compra-card strong,
+.compra-total strong {
+    color: #24583d;
+}
+
+.compra-card input,
+.compra-form select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #d9e2da;
+    border-radius: 4px;
+}
+
+.compra-total {
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.compra-form > button {
+    min-height: 44px;
+    padding: 10px 18px;
+}
+
+.recibo-info {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.recibo-page {
+    max-width: 760px;
+    background: #fff;
+}
+
+.recibo {
+    padding: 28px;
+    border: 1px solid #d9e2da;
+    background: #fff;
+}
+
+.recibo-header {
+    padding-bottom: 16px;
+    border-bottom: 1px dashed #bdcbbf;
+    text-align: center;
+}
+
+.recibo-header h1 {
+    margin: 0;
+}
+
+.recibo-header p {
+    margin: 6px 0;
+}
+
+.recibo-marca {
+    color: #26734d;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.recibo-gracias {
+    margin: 24px 0;
+    text-align: center;
+}
+
+.recibo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.recibo-actions button {
+    min-height: 38px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: #26734d;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.recibo-actions a {
+    display: inline-flex;
+    align-items: center;
+}
+
 /* dibujo de una taza de café */
 .coffee-cup {
     position: absolute;

@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle de venta #<?= (int) $venta->IdVenta ?></title>
-    <link rel="stylesheet" href="public/css/estilo.css">
+    <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
-<body>
-    <h1>Detalle de venta #<?= (int) $venta->IdVenta ?></h1>
-    <p>Fecha: <?= htmlspecialchars($venta->FechaVenta, ENT_QUOTES, 'UTF-8') ?> |
-       Total: <?= number_format((float) $venta->Total, 2) ?></p>
+<body class="compra-page">
+    <div class="section-wrap">
+
+    <h1 style="text-align: center;">Detalle de venta #<?= (int) $venta->IdVenta ?></h1>
+    
+    <div class="recibo-info">
+    <p><strong>Fecha: </strong> <?= htmlspecialchars($venta->FechaVenta, ENT_QUOTES, 'UTF-8') ?> |
+    <strong>Total: </strong> <?= number_format((float) $venta->Total, 2) ?></p>
     <p><strong>Comprado por:</strong>
         <?= $cliente ? htmlspecialchars($cliente->Nombres . ' ' . $cliente->Apellidos, ENT_QUOTES, 'UTF-8') : 'Público general' ?>
     </p>
-    <p><a href="index.php?controlador=venta&accion=recibo&id=<?= (int) $venta->IdVenta ?>">Ver recibo</a></p>
+    </div>
+    
+    <div style="margin-top: 20px; text-align: center;">
+        <a href="index.php?controlador=venta&accion=recibo&id= <?= (int) $venta->IdVenta ?>" class="button button-dark">Ver recibo</a>
+    </div>
+
     <?php if (($_GET['error'] ?? '') === 'datos'): ?>
         <p role="alert">Selecciona un producto válido y una cantidad mayor que cero.</p>
     <?php endif; ?>
-    <h2>Agregar más productos</h2>
+    <h2 style="text-align: center;">Agregar más productos</h2>
     <form method="POST" action="index.php?controlador=venta&accion=agregarDetalle&id=<?= (int) $venta->IdVenta ?>">
         <label for="id_producto">Producto del menú:</label>
         <select id="id_producto" name="id_producto">
@@ -30,7 +39,7 @@
         <input type="number" id="cantidad" name="cantidad" min="1" required>
         <button type="submit">Agregar detalle</button>
     </form>
-    <h2>Artículos</h2>
+    <h2 style="text-align: center;">Artículos</h2>
     <table>
         <tr><th>Descripción</th><th>Cantidad</th><th>Precio unitario</th><th>Subtotal</th><th>Acciones</th></tr>
         <?php while ($detalle = $detalles->fetch_object()): ?>
@@ -47,6 +56,10 @@
         </tr>
         <?php endwhile; ?>
     </table>
-    <p><a href="index.php?controlador=venta&accion=index">Volver a ventas</a></p>
+    
+    <div style="margin-top: 20px; text-align: center;">
+                     <a href="index.php?controlador=venta&accion=index" class="button button-dark">Volver a ventas</a>
+              </div>
+    </div>
 </body>
 </html>

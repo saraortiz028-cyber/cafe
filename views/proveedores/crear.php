@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Nuevo Proveedor</title>
-	<link rel="stylesheet" href="public/css/estilo.css">
+	<link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
-	<h1>Nuevo Proveedor</h1>
+	<h1 style="text-align: center;">Nuevo Proveedor</h1>
 	<form method="POST">
 		<label for="Nombre">Nombre:</label>
 		<input type="text" id="Nombre" name="Nombre" maxlength="100" required>
