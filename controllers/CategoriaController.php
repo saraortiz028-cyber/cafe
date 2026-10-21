@@ -9,40 +9,69 @@ class CategoriaController {
     }
 
     public function crear() {
-        if ($_POST) {
-            $nombre = $_POST['nombre'] ?? '';
-            $descripcion = $_POST['descripcion'] ?? '';
+    $editando = false;
+    $categoria = null;
+    $error = null;
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nombre = trim($_POST['nombre'] ?? '');
+        $descripcion = trim($_POST['descripcion'] ?? '');
+
+        if ($nombre === '') {
+            $error = 'El nombre de la categoría es obligatorio.';
+        } else {
             Categoria::guardar($nombre, $descripcion);
-            
+
             header("Location: index.php?controlador=categoria&accion=index");
             exit;
         }
-        require "views/categorias/crear.php";
+
+        $categoria = (object) [
+            'nombre' => $nombre,
+            'descripcion' => $descripcion
+        ];
     }
 
-    public function editar() {
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
+    require "views/categorias/formulario.php";
+}
 
-        if (!$id) {
-            header("Location: index.php?controlador=categoria&accion=index");
-            exit();
-        }
+public function editar() {
+    $id = $_GET['id'] ?? null;
 
-        if ($_POST) {
-            // Si en la vista de editar también agregaste la descripción, 
-            // recuerda actualizarlo aquí también capturando $_POST['descripcion']
-            $nombre = $_POST['nombre'] ?? '';
-            $descripcion = $_POST['descripcion'] ?? '';
-            
+    if (!$id) {
+        header("Location: index.php?controlador=categoria&accion=index");
+        exit;
+    }
+
+    $categoria = Categoria::obtenerPorId($id);
+
+    if (!$categoria) {
+        header("Location: index.php?controlador=categoria&accion=index");
+        exit;
+    }
+
+    $editando = true;
+    $error = null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nombre = trim($_POST['nombre'] ?? '');
+        $descripcion = trim($_POST['descripcion'] ?? '');
+
+        if ($nombre === '') {
+            $error = 'El nombre de la categoría es obligatorio.';
+        } else {
             Categoria::actualizar($id, $nombre, $descripcion);
+
             header("Location: index.php?controlador=categoria&accion=index");
-            exit();
+            exit;
         }
 
-        $categoria = Categoria::obtenerPorId($id);
-        require "views/categorias/editar.php";
+        $categoria->Nombre = $nombre;
+        $categoria->Descripcion = $descripcion;
     }
+
+    require "views/categorias/formulario.php";
+}
 
     public function eliminar() {
         $id = isset($_GET['id']) ? $_GET['id'] : null;
