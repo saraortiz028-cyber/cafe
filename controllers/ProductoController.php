@@ -8,46 +8,145 @@ class ProductoController {
         require "views/productos/index.php";
     }
 
-    public function crear() {
-        if ($_POST) {
-            Producto::guardar(
-                $_POST['nombre'], 
-                $_POST['descripcion'],
-                $_POST['precio'], 
-                $_POST['existencias'],
-                $_POST['id_categoria'] ?? null
-            );
-            header("Location: index.php?controlador=producto&accion=index");
-            exit;
+    public function crear()
+    {
+        $editando = false;
+        $producto = null;
+        $error = null;
+
+        $categorias = Producto::obtenerCategorias();
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $nombre      = trim($_POST['nombre'] ?? '');
+            $descripcion = trim($_POST['descripcion'] ?? '');
+            $precio      = $_POST['precio'] ?? '';
+            $existencias = $_POST['existencias'] ?? '';
+            $id_categoria = $_POST['id_categoria'] ?? '';
+
+
+            if (
+                $nombre === '' ||
+                $precio === '' ||
+                !is_numeric($precio) ||
+                $existencias === '' ||
+                !ctype_digit((string) $existencias)
+            ) {
+
+                $error = "Revisa el nombre, el precio y las existencias.";
+
+                $producto = (object) [
+                    'nombre'       => $nombre,
+                    'descripcion'  => $descripcion,
+                    'precio'       => $precio,
+                    'existencias'  => $existencias,
+                    'id_categoria' => $id_categoria
+                ];
+
+            } else {
+
+                Producto::guardar(
+                    $nombre,
+                    $descripcion,
+                    (float) $precio,
+                    (int) $existencias,
+                    $id_categoria !== '' ? (int) $id_categoria : null
+                );
+
+                header(
+                    "Location: index.php?controlador=producto&accion=index"
+                );
+
+                exit;
+            }
         }
-        $categorias = Producto::obtenerCategorias(); // Necesario para el select del formulario
-        require "views/productos/crear.php";
+
+
+        require "views/productos/formulario.php";
     }
 
-    public function editar() {
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-        if (!$id) {
-            header("Location: index.php?controlador=producto&accion=index");
-            exit();
-        }
+    public function editar()
+    {
+        $id = $_GET['id'] ?? null;
 
-        if ($_POST) {
-            Producto::actualizar(
-                $id, 
-                $_POST['nombre'], 
-                $_POST['descripcion'],
-                $_POST['precio'], 
-                $_POST['existencias'],
-                $_POST['id_categoria'] ?? null
+
+        if (!$id || !ctype_digit((string) $id)) {
+
+            header(
+                "Location: index.php?controlador=producto&accion=index"
             );
-            header("Location: index.php?controlador=producto&accion=index");
-            exit();
+
+            exit;
         }
+
 
         $producto = Producto::obtenerPorId($id);
-        $categorias = Producto::obtenerCategorias(); // Necesario para el select en la edición
-        require "views/productos/editar.php";
+
+
+        if (!$producto) {
+
+            header(
+                "Location: index.php?controlador=producto&accion=index"
+            );
+
+            exit;
+        }
+
+
+        $editando = true;
+        $error = null;
+
+        $categorias = Producto::obtenerCategorias();
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $nombre       = trim($_POST['nombre'] ?? '');
+            $descripcion  = trim($_POST['descripcion'] ?? '');
+            $precio       = $_POST['precio'] ?? '';
+            $existencias  = $_POST['existencias'] ?? '';
+            $id_categoria = $_POST['id_categoria'] ?? '';
+
+
+            if (
+                $nombre === '' ||
+                $precio === '' ||
+                !is_numeric($precio) ||
+                $existencias === '' ||
+                !ctype_digit((string) $existencias)
+            ) {
+
+                $error = "Revisa el nombre, el precio y las existencias.";
+
+                $producto->nombre = $nombre;
+                $producto->descripcion = $descripcion;
+                $producto->precio = $precio;
+                $producto->existencias = $existencias;
+                $producto->id_categoria = $id_categoria;
+
+            } else {
+
+                Producto::actualizar(
+                    $id,
+                    $nombre,
+                    $descripcion,
+                    (float) $precio,
+                    (int) $existencias,
+                    $id_categoria !== '' ? (int) $id_categoria : null
+                );
+
+                header(
+                    "Location: index.php?controlador=producto&accion=index"
+                );
+
+                exit;
+            }
+        }
+
+
+        require "views/productos/formulario.php";
     }
 
     public function eliminar() {
