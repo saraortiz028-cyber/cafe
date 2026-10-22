@@ -40,6 +40,15 @@
         <input type="email" id="correo" name="correo" value="<?= 
         htmlspecialchars($empleado->Correo ?? '') ?>">
 
+        <?php if (!$editando): ?>
+
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" autocomplete="new-password" minlength="8"
+        required>
+
+        <?php endif; ?>
+
+
         <label for="salario">Salario:</label>
         <input type="number" step="0.01" id="salario" name="salario" value="<?= 
         htmlspecialchars($empleado->Salario ?? '') ?>">

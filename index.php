@@ -1,5 +1,8 @@
 <?php
 require_once "config/database.php";
+require_once "auth.php";
+
+Auth::iniciarSesion();
 
 $controlador = $_GET['controlador'] ?? null;
 $accion = $_GET['accion'] ?? 'index';
@@ -9,7 +12,19 @@ if ($controlador === null) {
     exit;
 }
 
-if ($controlador == 'empleado') {
+if ($controlador === 'auth') {
+    require_once "controllers/AuthController.php";
+    $controladorInstanciado = new AuthController();
+
+    if (in_array($accion, ['login', 'logout'], true)) {
+        $controladorInstanciado->$accion();
+    } else {
+        http_response_code(404);
+        echo "Acción no encontrada";
+    }
+}
+
+else if ($controlador == 'empleado') {
     require_once "controllers/EmpleadoController.php";
     $controladorInstanciado = new EmpleadoController();
     $controladorInstanciado->$accion();
