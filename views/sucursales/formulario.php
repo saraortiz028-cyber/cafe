@@ -12,6 +12,8 @@
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
     <?php endif; ?>
     <form method="POST">
+        <input type="hidden" name="csrf_token"
+       value="<?= htmlspecialchars(Auth::csrfToken(), ENT_QUOTES, 'UTF-8') ?>">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" maxlength="50"
                value="<?= htmlspecialchars($sucursal->Nombre ?? '', ENT_QUOTES, 'UTF-8') ?>" required>

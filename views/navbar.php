@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../auth.php'; ?>
 <nav class="main-nav">
     <a href="index.php?controlador=venta&accion=index">Ventas</a>
     <a href="index.php?controlador=compra&accion=index">Compras</a>

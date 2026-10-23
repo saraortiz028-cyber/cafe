@@ -21,6 +21,12 @@ class SucursalController {
         $sucursal = null;
         $error = null;
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+
+        if (!Auth::validarCsrf($_POST['csrf_token'] ?? null)) {
+    http_response_code(403);
+    exit('Solicitud no válida. Recarga el formulario e inténtalo nuevamente.');
+}
+
             $nombre = trim($_POST['nombre'] ?? '');
             $direccion = trim($_POST['direccion'] ?? '');
             if ($nombre === '' || $direccion === '') {
@@ -46,6 +52,12 @@ class SucursalController {
         }
         $error = null;
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+
+        if (!Auth::validarCsrf($_POST['csrf_token'] ?? null)) {
+    http_response_code(403);
+    exit('Solicitud no válida. Recarga el formulario e inténtalo nuevamente.');
+}
+
             $nombre = trim($_POST['nombre'] ?? '');
             $direccion = trim($_POST['direccion'] ?? '');
             if ($nombre === '' || $direccion === '') {
@@ -61,13 +73,13 @@ class SucursalController {
         require "views/sucursales/formulario.php";
     }
 
-    public function eliminar() {
-        $this->verificarAcceso();
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    public function eliminar() { 
+        $this->verificarAcceso(); 
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); 
         if ($id) {
-            Sucursal::eliminar($id);
+            Sucursal::eliminar($id); 
+            } 
+            header("Location: index.php?controlador=sucursal&accion=index"); 
+            exit; 
+            } 
         }
-        header("Location: index.php?controlador=sucursal&accion=index");
-        exit;
-    }
-}
