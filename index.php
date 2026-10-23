@@ -7,8 +7,36 @@ Auth::iniciarSesion();
 $controlador = $_GET['controlador'] ?? null;
 $accion = $_GET['accion'] ?? 'index';
 
+// Controladores que requieren sesión de empleado
+$controladoresAdmin = [
+    'empleado',
+    'cliente',
+    'proveedor',
+    'configuracion',
+    'categoria',
+    'cargo',
+    'sucursal',
+    'compra',
+    'producto',
+    'venta'
+];
+
+// Bloquear acceso administrativo si no ha iniciado sesión
+if (
+    in_array($controlador, $controladoresAdmin, true)
+    && !Auth::estaAutenticado()
+) {
+    header("Location: index.php?controlador=auth&accion=login");
+    exit;
+}
+
 if ($controlador === null) {
-    require_once "views/home.php";
+    if (Auth::estaAutenticado()) {
+        require_once "views/admin/home.php";
+    } else {
+        require_once "views/home.php";
+    }
+
     exit;
 }
 
@@ -82,6 +110,23 @@ else if ($controlador == 'venta') {
     require_once "controllers/Venta_y_DetalleController.php";
     $controladorInstanciado = new VentaController();
     $controladorInstanciado->$accion();
+}
+
+else if ($controlador == 'publico') {
+    require_once "controllers/PublicoController.php";
+
+    $controladorInstanciado = new PublicoController();
+
+    if (in_array(
+    $accion,
+    ['productos', 'categorias', 'sucursales', 'confirmarCompra', 'recibo'],
+    true
+)) {
+    $controladorInstanciado->$accion();
+} else {
+    http_response_code(404);
+    echo "Acción no encontrada";
+}
 }
 
 else {

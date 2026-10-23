@@ -87,19 +87,19 @@ a {
     gap: 10px;                      /* Espacio mínimo por si se acomodan en varias filas */
     margin-bottom: 20px;
     padding: 15px;
-    background: #f8f6f0;            /* Fondo sutil opcional para enmarcar la barra */
+    background: #eabe3a;            /* Fondo sutil opcional para enmarcar la barra */
     border-radius: 6px;
     border: 1px solid #e8e4d9;
 }
 
 /* Cada enlace se estira de manera uniforme ocupando el mismo espacio */
 .main-nav a {
-    flex: 1;                        /* Hace que todos crezcan y repartan el ancho disponible */
-    min-width: 130px;               /* Evita que se encojan demasiado en pantallas medianas */
+    flex: 0 1 110px;                        /* Hace que todos crezcan y repartan el ancho disponible */
+    min-width: 0;               /* Evita que se encojan demasiado en pantallas medianas */
     text-align: center;             /* Centra el texto dentro de su espacio asignado */
     background: #354A36;            /* Tu color verde de administración */
     color: #ffffff;
-    padding: 10px 15px;
+    padding: 10px 8px;
     text-decoration: none;
     border-radius: 4px;
     font-size: 11px;
@@ -111,6 +111,32 @@ a {
 .main-nav a:hover {
     background: #263B2B;            /* Un tono un poco más oscuro al hacer hover */
     transform: translateY(-1px);
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.nav-user form {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.nav-greeting {
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .nav-modules {
+        grid-template-columns: repeat(3, minmax(100px, 1fr));
+    }
 }
 
 .header-action {
