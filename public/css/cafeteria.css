@@ -80,89 +80,155 @@ a {
 }*/
 
 
-/* Contenedor principal de la barra de navegación */
+.admin-header {
+background: #fffefa;
+border-bottom: 1px solid #e8e4d9;
+margin-bottom: 28px;
+}
+
+/* Identidad de la cafetería */
+
+.admin-brand {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 12px;
+padding: 20px 16px;
+color: #29281f;
+font-family: 'Playfair Display', Georgia, serif;
+font-size: 25px;
+font-weight: 600;
+}
+
+.admin-brand-icon {
+font-family: Arial, sans-serif;
+font-size: 29px;
+}
+
+/* Barra de navegación */
+
 .main-nav {
-    display: flex;
-    justify-content: space-between; /* Distribuye el espacio de extremo a extremo */
-    align-items: center;
-    flex-wrap: wrap;                /* Si la pantalla es pequeña, bajan ordenados */
-    gap: 10px;                      /* Espacio mínimo por si se acomodan en varias filas */
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #e9efdd;            /* Fondo sutil opcional para enmarcar la barra */
-    border-radius: 6px;
-    border: 1px solid #e8e4d9;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: nowrap;
+gap: 10px;
+padding: 10px 14px;
+background: #e9efdd;
+border-top: 1px solid #e8e4d9;
+position: relative;
+z-index: 10;
 }
 
-/* Cada enlace se estira de manera uniforme ocupando el mismo espacio */
-.main-nav a {
-    flex: 0 1 110px;                        /* Hace que todos crezcan y repartan el ancho disponible */
-    min-width: 0;               /* Evita que se encojan demasiado en pantallas medianas */
-    text-align: center;             /* Centra el texto dentro de su espacio asignado */
-    background: #354A36;            /* Tu color verde de administración */
-    color: #ffffff;
-    padding: 10px 8px;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: bold;
-    transition: background 0.2s ease, transform 0.2s ease;
+.nav-modules {
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: nowrap;
+gap: 3px;
+flex: 1 1 auto;
+min-width: 0;
 }
 
-/* Efecto al pasar el cursor */
-.main-nav a:hover {
-    background: #263B2B;            /* Un tono un poco más oscuro al hacer hover */
-    transform: translateY(-1px);
+.main-nav .nav-modules a {
+display: inline-block;
+flex: 0 1 auto;
+padding: 10px 9px;
+border-radius: 7px;
+background: transparent;
+color: #354a36;
+text-align: center;
+text-decoration: none;
+font-family: 'DM Sans', Arial, sans-serif;
+font-size: 12px;
+font-weight: 700;
+white-space: nowrap;
+transition: background 0.2s ease, color 0.2s ease;
+position: relative;
+z-index: 11;
+pointer-events: auto;
+cursor: pointer;
 }
+
+
+
+.main-nav .nav-modules a:hover {
+background: #d6e0cb;
+color: #263b2b;
+}
+
+/* Enlace de la sección actual */
+
+.main-nav .nav-modules a.active {
+background: #354a36;
+color: #ffffff;
+border-radius: 7px;
+}
+
+
+/* Usuario y cierre de sesión */
 
 .nav-user {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+display: flex;
+align-items: center;
+justify-content: flex-end;
+gap: 12px;
+flex-wrap: nowrap;
+margin-left: auto;
+flex: 0 0 auto;
 }
 
 .nav-user form {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-}
-/**/
-@media (max-width: 900px) {
+margin: 0;
+padding: 0;
+background: transparent;
+border: none;
+box-shadow: none;
 }
 
 .nav-greeting {
 font-family: 'DM Sans', Arial, sans-serif;
-font-size: 16px;
+font-size: 14px;
 font-weight: 600;
 color: #354a36;
-letter-spacing: 0.3px;
 }
 
-
 .main-nav .nav-logout {
+padding: 10px 18px;
 background: #38a9d6;
 color: #ffffff;
 border: none;
 border-radius: 25px;
-padding: 10px 20px;
 font-size: 12px;
-font-weight: bold;
+font-weight: 700;
 cursor: pointer;
-transition: background 0.2s ease, transform 0.2s ease;
+transition: background 0.2s ease;
 }
 
 .main-nav .nav-logout:hover {
 background: #2186b0;
 color: #ffffff;
-transform: translateY(-1px);
+}
+
+/* Adaptación a pantallas pequeñas */
+
+@media (max-width: 900px) {
+.main-nav {
+justify-content: center;
+padding: 12px;
+}
+
+}
+.nav-modules {
+    flex-basis: 100%;
+}
+
+.nav-user {
+    width: 100%;
 }
 
 /* ==================================================
-   NAVEGACIÓN PÚBLICA
+NAVEGACIÓN PÚBLICA
 ================================================== */
 .site-header nav.public-nav {
     display: flex;
@@ -193,7 +259,7 @@ transform: translateY(-1px);
 
 
 /* ==================================================
-   PÁGINAS PÚBLICAS: CATEGORÍAS Y SUCURSALES
+PÁGINAS PÚBLICAS: CATEGORÍAS Y SUCURSALES
 ================================================== */
 
 .categorias-page {
@@ -572,7 +638,7 @@ h1 em, h2 em {
 
 
 /* ==================================================
-   TABLAS DE DATOS
+TABLAS DE DATOS
 ================================================== */
 
 table {
@@ -681,17 +747,20 @@ td a[href*="detalle"]:hover {
 
 /* Contenedor general para las vistas de administración */
 .admin-content {
-    max-width: 1500px;     /* Ancho máximo para que no se extienda por toda la pantalla */
-    margin: 40px auto;     /* Centra automáticamente el bloque horizontalmente */
-    padding: 0 20px;       /* Margen de seguridad a los lados en pantallas pequeñas */
+max-width: 1500px;
+margin: 40px auto;
+padding: 25px 20px;
+background: #aba57c;
+border-radius: 10px;
 }
+
 
 /* Estilo general para las tablas de administración */
 .admin-content table {
     width: 100%;
     border-collapse: collapse;
-    background: #ffffff;
-    border: 1px solid #eeece4;
+    background: #FFFCF5;
+    border: 1px solid #DED8CA;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
@@ -705,8 +774,8 @@ td a[href*="detalle"]:hover {
 }
 
 .admin-content th {
-    background: #f8f6f0;
-    color: #56564d;
+    background: #E4E8D9;
+    color: #354A36;
     font-weight: 700;
     border-bottom: 1px solid #e8e4d9;
 }
