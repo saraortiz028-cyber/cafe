@@ -87,7 +87,7 @@ a {
     gap: 10px;                      /* Espacio mínimo por si se acomodan en varias filas */
     margin-bottom: 20px;
     padding: 15px;
-    background: #eabe3a;            /* Fondo sutil opcional para enmarcar la barra */
+    background: #e9efdd;            /* Fondo sutil opcional para enmarcar la barra */
     border-radius: 6px;
     border: 1px solid #e8e4d9;
 }
@@ -137,6 +137,339 @@ a {
     .nav-modules {
         grid-template-columns: repeat(3, minmax(100px, 1fr));
     }
+}
+
+.nav-greeting {
+font-family: 'DM Sans', Arial, sans-serif;
+font-size: 16px;
+font-weight: 600;
+color: #354a36;
+letter-spacing: 0.3px;
+}
+
+
+.main-nav .nav-logout {
+background: #38a9d6;
+color: #ffffff;
+border: none;
+border-radius: 25px;
+padding: 10px 20px;
+font-size: 12px;
+font-weight: bold;
+cursor: pointer;
+transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.main-nav .nav-logout:hover {
+background: #2186b0;
+color: #ffffff;
+transform: translateY(-1px);
+}
+
+/* Navegación pública */
+.site-header nav.public-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.site-header nav.public-nav a {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 10px 0;
+    background: transparent;
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+
+
+/* ===== Página pública de categorías ===== */
+
+.categorias-page {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.categorias-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 75px 10% 80px;
+    background: var(--green);
+    color: white;
+}
+
+.categorias-eyebrow,
+.categorias-etiqueta {
+    display: block;
+    margin-bottom: 16px;
+    color: #e9b18f;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+}
+
+.categorias-hero h1 {
+    position: relative;
+    z-index: 1;
+    max-width: 650px;
+    margin: 0 0 18px;
+    font-family: var(--serif);
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+.categorias-hero p {
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    margin: 0;
+    color: #e6e8df;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.categorias-decoracion {
+    position: absolute;
+    right: 12%;
+    bottom: -45px;
+    color: rgba(255, 255, 255, 0.08);
+    font-size: 220px;
+    transform: rotate(-15deg);
+}
+
+.categorias-contenido {
+    padding: 65px 10%;
+}
+
+.categorias-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.categorias-encabezado h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(27px, 3vw, 36px);
+    font-weight: 500;
+}
+
+.categorias-encabezado .categorias-etiqueta {
+    margin-bottom: 10px;
+    color: var(--orange);
+}
+
+.categorias-encabezado > p {
+    max-width: 300px;
+    margin: 0 0 5px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.categoria-card {
+    position: relative;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 30px;
+    overflow: hidden;
+    background: #fffefa;
+    border: 1px solid #e8e4d9;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.categoria-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(41, 40, 31, 0.08);
+}
+
+.categoria-numero {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    color: #c9c6b9;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.categoria-icono {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 20px;
+    place-items: center;
+    background: #edf0e7;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.categoria-card h3 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 23px;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.categoria-linea {
+    width: 35px;
+    height: 3px;
+    margin-top: 18px;
+    background: var(--orange);
+    transition: width 0.2s ease;
+}
+
+.categoria-card:hover .categoria-linea {
+    width: 65px;
+}
+
+.categorias-vacio {
+    grid-column: 1 / -1;
+    padding: 45px 20px;
+    text-align: center;
+    background: #fffefa;
+    border: 1px solid #e8e4d9;
+}
+
+.categorias-vacio > span {
+    font-size: 35px;
+}
+
+.categorias-vacio h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+}
+
+.categorias-vacio p {
+    color: var(--muted);
+}
+
+.categorias-accion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid #e8e4d9;
+}
+
+.categorias-accion p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.categorias-boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 19px;
+    background: var(--green);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.categorias-boton:hover {
+    background: #2a3b26;
+}
+
+.site-header nav.public-nav a {
+display: inline-block;
+padding: 12px 18px;
+border-radius: 4px;
+background: transparent;
+color: var(--green);
+text-decoration: none;
+transition: background 0.2s ease, color 0.2s ease;
+}
+
+.site-header .public-nav a:hover {
+    background: var(--green);
+    color: white;
+}
+
+@media (max-width: 760px) {
+    .categorias-hero {
+        padding: 55px 7%;
+    }
+
+    .categorias-decoracion {
+        right: -20px;
+        font-size: 140px;
+    }
+
+    .categorias-contenido {
+        padding: 45px 7%;
+    }
+
+    .categorias-encabezado {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .categorias-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .categoria-card {
+        min-height: 180px;
+        padding: 20px;
+    }
+
+    .categoria-card h3 {
+        font-size: 20px;
+    }
+
+    .categorias-accion {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 420px) {
+    .categorias-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Información de las sucursales publica*/
+.sucursal-direccion {
+    margin: 15px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+/* Las tarjetas de sucursales no necesitan espacio adicional para imágenes */
+.sucursal-card {
+    justify-content: flex-start;
 }
 
 .header-action {
@@ -337,10 +670,10 @@ h1 em, h2 em {
 /* ESTILOS PARA TABLAS DE DATOS */
 
 table {
-    width: 100%;
+    width: 95%;
     border-collapse: separate;
     border-spacing: 0;
-    margin: 20px 0;
+    margin: 20px auto;
     background-color: #fffefa; /* Tono cálido acorde a var(--paper) / cards */
     border: 1px solid #e8e4d9;
     border-radius: 6px;

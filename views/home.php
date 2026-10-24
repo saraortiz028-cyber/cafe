@@ -13,13 +13,6 @@
             <strong>Cafetería</strong>
         </div>
 
-        <nav class="public-nav">
-            <a href="index.php">Inicio</a>
-            <a href="index.php?controlador=publico&accion=productos">Productos</a>
-            <a href="index.php?controlador=publico&accion=categorias">Categorías</a>
-            <a href="index.php?controlador=publico&accion=sucursales">Sucursales</a>
-            <a href="index.php?controlador=auth&accion=login">Acceso de empleados</a>
-        </nav>
     </header>
 
     <section class="hero">

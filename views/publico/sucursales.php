@@ -8,43 +8,109 @@
 </head>
 <body>
 
-<header class="site-header">
-    <a href="index.php" class="brand">☕ Cafetería</a>
+<?php include __DIR__ . '/../navbar_publico.php'; ?>
 
-    <nav class="public-nav">
-        <a href="index.php">Inicio</a>
-        <a href="index.php?controlador=publico&accion=productos">Productos</a>
-        <a href="index.php?controlador=publico&accion=categorias">Categorías</a>
-        <a href="index.php?controlador=publico&accion=sucursales">Sucursales</a>
-    </nav>
-</header>
+<main class="categorias-page">
 
-<main class="container">
-    <h1>Nuestras sucursales</h1>
-    <p>Encuentra tu sucursal de nuestra cafetería.</p>
+    <section class="categorias-hero">
+        <span class="categorias-eyebrow">SIEMPRE CERCA DE TI</span>
 
-    <section class="menu-grid">
-        <?php if ($sucursales && $sucursales->num_rows > 0): ?>
+        <h1>Nuestras sucursales</h1>
 
-            <?php while ($sucursal = $sucursales->fetch_object()): ?>
-                <article class="menu-card">
-                    <div class="card-copy">
-                        <h2>
-                            <?= htmlspecialchars($sucursal->Nombre, ENT_QUOTES, 'UTF-8') ?>
-                        </h2>
+        <p>
+            Encuentra tu cafetería favorita, conoce nuestras ubicaciones
+            y descubre dónde disfrutar de un buen café.
+        </p>
 
-                        <p>
-                            <?= htmlspecialchars($sucursal->Direccion ?? '', ENT_QUOTES, 'UTF-8') ?>
-                        </p>
-                    </div>
-                </article>
-            <?php endwhile; ?>
-
-        <?php else: ?>
-            <p>No hay sucursales disponibles por el momento.</p>
-        <?php endif; ?>
+        <span class="categorias-decoracion" aria-hidden="true">⌖</span>
     </section>
+
+    <section class="categorias-contenido">
+
+        <div class="categorias-encabezado">
+            <div>
+                <span class="categorias-etiqueta">VISÍTANOS</span>
+                <h2>Encuentra tu sucursal</h2>
+            </div>
+
+            <p>Será un gusto recibirte y compartir contigo una buena taza de café.</p>
+        </div>
+
+        <div class="categorias-grid">
+
+            <?php if ($sucursales && $sucursales->num_rows > 0): ?>
+
+                <?php $numeroSucursal = 0; ?>
+
+                <?php while ($sucursal = $sucursales->fetch_object()): ?>
+
+                    <?php $numeroSucursal++; ?>
+
+                    <article class="categoria-card sucursal-card">
+
+                        <span class="categoria-numero">
+                            <?= str_pad((string) $numeroSucursal, 2, '0', STR_PAD_LEFT) ?>
+                        </span>
+
+                        <div class="categoria-icono" aria-hidden="true">⌖</div>
+
+                        <h3>
+                            <?= htmlspecialchars(
+                                $sucursal->Nombre,
+                                ENT_QUOTES,
+                                'UTF-8'
+                            ) ?>
+                        </h3>
+
+                        <span class="categoria-linea"></span>
+
+                        <p class="sucursal-direccion">
+                            <?= htmlspecialchars(
+                                $sucursal->Direccion ?? 'Dirección no disponible',
+                                ENT_QUOTES,
+                                'UTF-8'
+                            ) ?>
+                        </p>
+
+                    </article>
+
+                <?php endwhile; ?>
+
+            <?php else: ?>
+
+                <div class="categorias-vacio">
+                    <span aria-hidden="true">☕</span>
+                    <h3>Pronto estaremos más cerca</h3>
+                    <p>No hay sucursales disponibles por el momento.</p>
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <div class="categorias-accion">
+            <p>¿Ya tienes ganas de disfrutar algo delicioso?</p>
+
+            <a
+                href="index.php?controlador=publico&accion=productos"
+                class="categorias-boton"
+            >
+                Explorar productos <span aria-hidden="true">→</span>
+            </a>
+        </div>
+
+    </section>
+
 </main>
+
+<footer class="site-footer">
+    <div class="brand footer-brand">
+        <div class="brand-icon">☕</div>
+        <strong>Cafetería</strong>
+    </div>
+
+    <p>Te esperamos para compartir un buen café.</p>
+</footer>
 
 </body>
 </html>

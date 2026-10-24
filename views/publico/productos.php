@@ -6,22 +6,10 @@
     <title>Nuestros productos - Cafetería</title>
     <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
-<body>
 
-    <header class="site-header">
-        <div class="brand">
-            <div class="brand-icon">☕</div>
-            <strong>Cafetería</strong>
-        </div>
+<body class="compra-page">
 
-        <nav class="public-nav">
-            <a href="index.php">Inicio</a>
-            <a href="index.php?controlador=publico&accion=productos">Productos</a>
-            <a href="index.php?controlador=publico&accion=categorias">Categorías</a>
-            <a href="index.php?controlador=publico&accion=sucursales">Sucursales</a>
-            <a href="index.php?controlador=auth&accion=login">Acceso empleados</a>
-        </nav>
-    </header>
+    <?php include __DIR__ . '/../navbar_publico.php'; ?>
 
     <main class="section-wrap menu-section">
 
@@ -35,18 +23,19 @@
         </div>
 
         <form
-        class="compra-form"
-        method="POST"
-        action="index.php?controlador=publico&accion=confirmarCompra">
+            class="compra-form"
+            method="POST"
+            action="index.php?controlador=publico&accion=confirmarCompra"
+        >
 
-            <div class="menu-grid">
+            <div class="compra-grid">
 
                 <?php if ($productos && $productos->num_rows > 0): ?>
 
                     <?php while ($producto = $productos->fetch_object()): ?>
 
-                        <article class="menu-card">
-                            <div class="card-copy">
+                        <article class="compra-card">
+                            <div>
 
                                 <span class="card-number">
                                     <?= htmlspecialchars(
@@ -72,31 +61,30 @@
                                     ) ?>
                                 </p>
 
-                                <p>
-                                    <strong>Precio:</strong>
+                                <strong>
                                     $<?= number_format((float) $producto->Precio, 2) ?> NIO
-                                </p>
-
-                                <label for="producto-<?= (int) $producto->IdProducto ?>">
-                                    <strong>Cantidad:</strong>
-                                </label>
-
-                                <input
-                                    class="cantidad-producto"
-                                    type="number"
-                                    id="producto-<?= (int) $producto->IdProducto ?>"
-                                    name="productos[<?= (int) $producto->IdProducto ?>]"
-                                    min="0"
-                                    max="1000"
-                                    value="0"
-                                    data-precio="<?= htmlspecialchars(
-                                        (string) $producto->Precio,
-                                        ENT_QUOTES,
-                                        'UTF-8'
-                                    ) ?>"
-                                >
+                                </strong>
 
                             </div>
+
+                            <label for="producto-<?= (int) $producto->IdProducto ?>">
+                                Cantidad
+                            </label>
+
+                            <input
+                                class="cantidad-producto"
+                                type="number"
+                                id="producto-<?= (int) $producto->IdProducto ?>"
+                                name="productos[<?= (int) $producto->IdProducto ?>]"
+                                min="0"
+                                max="1000"
+                                value="0"
+                                data-precio="<?= htmlspecialchars(
+                                    (string) $producto->Precio,
+                                    ENT_QUOTES,
+                                    'UTF-8'
+                                ) ?>"
+                            >
                         </article>
 
                     <?php endwhile; ?>
@@ -111,8 +99,14 @@
 
             <?php if ($productos && $productos->num_rows > 0): ?>
 
-                <p class="compra-total">Total estimado: <strong data-compra-total>$0.00 NIO</strong></p>
-        <button type="submit">Confirmar compra y generar recibo</button>
+                <p class="compra-total">
+                    Total estimado:
+                    <strong data-compra-total>$0.00 NIO</strong>
+                </p>
+
+                <button type="submit">
+                    Confirmar compra y generar recibo
+                </button>
 
             <?php endif; ?>
 
