@@ -146,19 +146,19 @@ class PublicoController
     }
 
     public function recibo()
-    {
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+{
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-        $venta = $id ? Venta::obtenerParaRecibo($id) : null;
+    $venta = $id ? Venta::obtenerParaRecibo($id) : null;
 
-        if (!$venta) {
-            http_response_code(404);
-            echo "La compra solicitada no existe.";
-            return;
-        }
-
-        $detalles = DetalleVenta::obtenerPorVenta($id);
-
-        require "views/venta_y_detalle/recibo.php";
+    if (!$venta) {
+        http_response_code(404);
+        echo "La compra solicitada no existe.";
+        return;
     }
+
+    $detalles = DetalleVenta::obtenerPorVenta($id);
+
+    require "views/publico/recibo.php";
+}
 }

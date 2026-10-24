@@ -12,6 +12,32 @@
     <h1>Productos</h1>
     <a href="index.php?controlador=producto&accion=crear" class="button button-dark">Nuevo Producto</a>
     <a href="index.php" class="button button-dark">Inicio</a></p>
+
+    <?php if (isset($_GET['mensaje'])): ?>
+
+    <?php if ($_GET['mensaje'] === 'eliminado'): ?>
+
+        <!--<div class="alerta alerta-exito">
+            Producto eliminado correctamente.
+        </div>-->
+
+    <?php elseif ($_GET['mensaje'] === 'tiene_ventas'): ?>
+
+        <div class="alerta alerta-error">
+            No se puede eliminar este producto porque tiene ventas registradas.
+        </div>
+
+    <?php elseif ($_GET['mensaje'] === 'error'): ?>
+
+        <div class="alerta alerta-error">
+            No se pudo eliminar el producto. Inténtalo nuevamente.
+        </div>
+
+    <?php endif; ?>
+
+<?php endif; ?>
+
+
     <table>
         <tr>
             <th>ID</th>

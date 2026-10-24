@@ -31,11 +31,40 @@ class Producto {
     }
 
     public static function eliminar($id) {
-        $db = Database::conectar();
-        $stmt = $db->prepare("DELETE FROM productos WHERE IdProducto = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
+    $db = Database::conectar();
+
+    // Comprobar si el producto tiene ventas relacionadas.
+    $stmt = $db->prepare(
+        "SELECT COUNT(*) AS total
+         FROM detalle_venta
+         WHERE IdProducto = ?"
+    );
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $resultado = $stmt->get_result()->fetch_object();
+    $stmt->close();
+
+    // Si tiene ventas, no permitir la eliminación.
+    if ($resultado->total > 0) {
+        $db->close();
+        return false;
     }
+
+    // Si no tiene ventas, eliminar el producto.
+    $stmt = $db->prepare(
+        "DELETE FROM productos WHERE IdProducto = ?"
+    );
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $stmt->close();
+    $db->close();
+
+    return true;
+}
 
     // Método adicional de apoyo para poblar el <select> de categorías en las vistas
     public static function obtenerCategorias() {

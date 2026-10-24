@@ -150,12 +150,29 @@ class ProductoController {
     }
 
     public function eliminar() {
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
-        if ($id) {
-            Producto::eliminar($id);
+    $id = $_GET['id'] ?? null;
+    $mensaje = '';
+
+    if ($id && ctype_digit((string) $id)) {
+        try {
+            $eliminado = Producto::eliminar((int) $id);
+
+            if ($eliminado) {
+                $mensaje = 'eliminado';
+            } else {
+                $mensaje = 'tiene_ventas';
+            }
+
+        } catch (mysqli_sql_exception $e) {
+            error_log("Error al eliminar producto: " . $e->getMessage());
+            $mensaje = 'error';
         }
-        header("Location: index.php?controlador=producto&accion=index");
-        exit();
     }
+
+    header(
+        "Location: index.php?controlador=producto&accion=index&mensaje="
+        . urlencode($mensaje)
+    );
+    exit();
 }
-?>
+}

@@ -33,10 +33,10 @@
             Público general
         </p>
 
-        <p>
+        <!--<p>
             <strong>Tipo:</strong>
             Compra simulada
-        </p>
+        </p>-->
 
         <table>
             <thead>
@@ -84,7 +84,7 @@
                 <tr>
                     <th colspan="3">Total estimado</th>
                     <th>
-                        $<?= number_format((float) $total, 2) ?> NIO
+                        $<?= number_format((float) $venta->Total, 2) ?> NIO
                     </th>
                 </tr>
             </tfoot>
@@ -101,11 +101,11 @@
             </button>
 
             <a
-                href="index.php?controlador=publico&accion=productos"
-                class="button button-dark"
-            >
-                Hacer otra compra
-            </a>
+    href="index.php?controlador=publico&accion=productos"
+    class="button button-dark"
+>
+    Hacer otra compra
+</a>
 
             <a href="index.php" class="button button-dark">
                 Volver al inicio
