@@ -11,16 +11,37 @@
 
     <?php include __DIR__ . '/../navbar_publico.php'; ?>
 
-    <main class="section-wrap menu-section">
+<main class="categorias-page catalogo-page">
 
-        <div class="section-heading">
-            <div>
-                <div class="eyebrow"><span></span> NUESTRO CATÁLOGO</div>
-                <h1>Descubre nuestros productos</h1>
-            </div>
+<section class="categorias-hero">
+    <span class="categorias-eyebrow">HECHO PARA DISFRUTAR</span>
 
-            <p>Conoce nuestra oferta, selecciona las cantidades y prepara tu pedido.</p>
+    <h1>Nuestro catálogo</h1>
+
+    <p>
+        Descubre los sabores de Café Aroma.
+        Explora nuestro menú y encuentra algo delicioso para disfrutar.
+    </p>
+
+    <span class="categorias-decoracion">☕</span>
+</section>
+
+<section class="categorias-contenido">
+
+    <div class="categorias-encabezado">
+        <div>
+            <span class="categorias-etiqueta">NUESTRA VARIEDAD</span>
+            <h2>Explora el menú</h2>
         </div>
+
+        <p>Encuentra algo delicioso para tu próximo descanso.</p>
+    </div>
+
+    <!-- Aquí continúa el contenido actual de tu catálogo -->
+
+</section>
+
+<section class="section-wrap menu-section">
 
         <form
             class="compra-form"
@@ -118,7 +139,7 @@
             </a>
         </p>
 
-    </main>
+    </section>
 
     <footer class="site-footer">
         <div class="brand footer-brand">

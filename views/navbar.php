@@ -3,8 +3,9 @@
 <header class="admin-header">
 
 <div class="admin-brand">
-    <div class="admin-brand-icon">☕</div>
-    <span>Cafetería</span>
+    <img src="public/img/logo_cafe_aroma.png"
+         alt="Logo de Café Aroma"
+         class="admin-logo">
 </div>
 
 <nav class="main-nav">

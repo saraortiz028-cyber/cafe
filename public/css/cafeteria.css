@@ -100,6 +100,14 @@ font-size: 25px;
 font-weight: 600;
 }
 
+.admin-logo {
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 .admin-brand-icon {
 font-family: Arial, sans-serif;
 font-size: 29px;
@@ -532,6 +540,15 @@ PÁGINAS PÚBLICAS: CATEGORÍAS Y SUCURSALES
     justify-content: flex-start;
 }
 
+/* Ajustes exclusivos del catálogo público */
+
+.catalogo-page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 5% 50px;
+}
+
 .hero {
     position: relative;
     min-height: 605px;
@@ -750,7 +767,7 @@ td a[href*="detalle"]:hover {
 max-width: 1500px;
 margin: 40px auto;
 padding: 25px 20px;
-background: #aba57c;
+background: #b4bba7;
 border-radius: 10px;
 }
 
@@ -861,7 +878,7 @@ form button[type="submit"]:hover {
 }
 
 /* ==================================================
-   COMPRAS, DETALLES Y RECIBOS
+COMPRAS, DETALLES Y RECIBOS
 ================================================== */
 /* Unifica la fuente en controles de formulario */
 input, select, button, textarea {
@@ -869,7 +886,16 @@ input, select, button, textarea {
 }
 
 .compra-page {
-    max-width: 1000px;
+    max-width: none;
+    width: 100%;
+    margin: 0;
+}
+
+.catalogo-page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 0 40px;
 }
 
 .compra-form {
@@ -997,8 +1023,8 @@ input, select, button, textarea {
 }
 
 /* ==================================================
-   INICIO PÚBLICO Y ADMINISTRATIVO
-   Ilustración de taza
+INICIO PÚBLICO Y ADMINISTRATIVO
+Ilustración de taza
 ================================================== */
 .coffee-cup {
     position: absolute;

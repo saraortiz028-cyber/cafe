@@ -1,8 +1,9 @@
 <header class="site-header">
-    <div class="brand">
-        <div class="brand-icon">☕</div>
-        <strong>Cafetería</strong>
-    </div>
+    <div class="admin-brand">
+    <img src="public/img/logo_cafe_aroma.png"
+         alt="Logo de Café Aroma"
+         class="admin-logo">
+</div>
 
     <nav class="public-nav">
         <a href="index.php">Inicio</a>
