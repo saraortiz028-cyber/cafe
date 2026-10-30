@@ -1632,6 +1632,237 @@ DISEÑO RESPONSIVE
     }
 }
 
+/* ==================================================
+   ESTILOS NUEVOS PARA EL DASHBOARD DE EMPLEADOS
+   ================================================== */
+.dashboard-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    font-family: 'DM Sans', Arial, sans-serif;
+    color: #29281f;
+}
+.dash-header {
+    margin-bottom: 25px;
+}
+.dash-title {
+    font-family: var(--serif, Georgia, serif);
+    font-size: 32px;
+    font-weight: 700;
+    color: #29281f;
+    margin: 0 0 5px 0;
+}
+.dash-subtitle {
+    font-size: 13px;
+    color: #77766d;
+    margin: 0;
+}
+
+.dash-subtitle strong {
+    color: #29281f;
+    font-weight: 700;
+}
+
+.dash-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.dash-card {
+    background: #ffffff;
+    border: 1px solid #e8e4d9;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.dash-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.dash-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f4f1ea;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+}
+.dash-card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #77766d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.dash-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.dash-card-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #29281f;
+    margin: 0;
+}
+.dash-card-trend {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+.trend-up {
+    color: #2e7d32;
+    background: #e8f5e9;
+}
+.trend-neutral {
+    color: #77766d;
+    background: #f0f0f0;
+}
+.trend-down {
+    color: #A83232;
+    background: #f0f0f0;
+}
+.dash-section-card {
+    background: #ffffff;
+    border: 1px solid #e8e4d9;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.dash-section-title {
+    font-family: var(--serif, Georgia, serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: #29281f;
+    margin: 0 0 4px 0;
+}
+.dash-section-desc {
+    font-size: 11px;
+    color: #77766d;
+    margin: 0 0 20px 0;
+}
+/* ==================================================
+   PRODUCTOS MÁS VENDIDOS
+================================================== */
+
+.dash-product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Contenedor de cada producto */
+
+.dash-product-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Imagen circular */
+
+.dash-product-image {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f4f1ea;
+    border: 1px solid #e8e4d9;
+}
+
+.dash-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Imagen alternativa si no existe fotografía */
+
+.dash-product-no-image {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-size: 23px;
+}
+
+/* Información del producto */
+
+.dash-product-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.dash-product-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.dash-product-info span {
+    color: #29281f;
+}
+
+.dash-product-info strong {
+    color: #29281f;
+    font-weight: 700;
+}
+
+/* Barra de progreso */
+
+.dash-product-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: #f4f1ea;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dash-product-bar-fill {
+    height: 100%;
+    background: #d46b3c;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+@media (max-width: 900px) {
+    .dash-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .dash-product-image {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+    }
+
+    .dash-product-item {
+        gap: 10px;
+    }
+
+}
+
 /* =====================================================================
    TODOS ESTOS ESTILOS NO SE UTILIZAN EN NINGUNA PARTE DEL PROYECTO
    SEGÚN LA REVISIÓN DE LOS ARCHIVOS PHP Y JAVASCRIPT INCLUIDOS.

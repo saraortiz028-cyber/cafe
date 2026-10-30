@@ -32,7 +32,7 @@ if (
 
 if ($controlador === null) {
     if (Auth::estaAutenticado()) {
-        require_once "views/admin/home.php";
+        header("Location: index.php?controlador=home&accion=index");
     } else {
         require_once "views/home.php";
     }
@@ -45,6 +45,25 @@ if ($controlador === 'auth') {
     $controladorInstanciado = new AuthController();
 
     if (in_array($accion, ['login', 'logout'], true)) {
+        $controladorInstanciado->$accion();
+    } else {
+        http_response_code(404);
+        echo "Acción no encontrada";
+    }
+}
+
+else if ($controlador === 'home') {
+
+    if (!Auth::estaAutenticado()) {
+        header("Location: index.php?controlador=auth&accion=login");
+        exit;
+    }
+
+    require_once "controllers/HomeController.php";
+
+    $controladorInstanciado = new HomeController();
+
+    if (in_array($accion, ['index', 'estadisticas'], true)) {
         $controladorInstanciado->$accion();
     } else {
         http_response_code(404);
