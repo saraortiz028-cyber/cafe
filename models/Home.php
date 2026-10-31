@@ -16,9 +16,10 @@ class Home
         $inicioActual = new DateTime('monday this week');
         $inicioActual->setTime(0, 0, 0);
 
-        // Final del período actual: mañana, sin incluirla.
-        $finActual = new DateTime('tomorrow');
-        $finActual->setTime(0, 0, 0);
+        // Final de la semana actual: próximo lunes.
+        // Se utiliza como límite exclusivo en las consultas SQL.
+        $finActual = clone $inicioActual;
+        $finActual->modify('+7 days');
 
         // Período equivalente de la semana anterior.
         $inicioAnterior = clone $inicioActual;
