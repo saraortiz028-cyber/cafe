@@ -5,29 +5,94 @@ class Producto {
 
     public static function obtenerTodos() {
         $db = Database::conectar();
-        return $db->query("SELECT p.*, c.Nombre as NombreCategoria FROM productos p LEFT JOIN categorias c ON p.IdCategoria = c.IdCategoria");
+
+        return $db->query(
+            "SELECT p.*, c.Nombre AS NombreCategoria
+             FROM productos p
+             LEFT JOIN categorias c ON p.IdCategoria = c.IdCategoria"
+        );
     }
 
     public static function obtenerPorId($id) {
         $db = Database::conectar();
-        $stmt = $db->prepare("SELECT * FROM productos WHERE IdProducto = ?");
+
+        $stmt = $db->prepare(
+            "SELECT * FROM productos WHERE IdProducto = ?"
+        );
+
         $stmt->bind_param("i", $id);
         $stmt->execute();
+
         return $stmt->get_result()->fetch_object();
     }
 
-    public static function guardar($nombre, $descripcion, $precio, $existencias, $idCategoria = null) {
+    // Registrar producto incluyendo su imagen.
+    public static function guardar(
+        $nombre,
+        $descripcion,
+        $precio,
+        $existencias,
+        $idCategoria = null,
+        $imagen = null
+    ) {
         $db = Database::conectar();
-        $stmt = $db->prepare("INSERT INTO productos(Nombre, Descripcion, Precio, Existencias, IdCategoria) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssdii", $nombre, $descripcion, $precio, $existencias, $idCategoria);
+
+        $stmt = $db->prepare(
+            "INSERT INTO productos
+            (Nombre, Descripcion, Precio, Existencias, IdCategoria, Imagen)
+            VALUES (?, ?, ?, ?, ?, ?)"
+        );
+
+        $stmt->bind_param(
+            "ssdiis",
+            $nombre,
+            $descripcion,
+            $precio,
+            $existencias,
+            $idCategoria,
+            $imagen
+        );
+
         $stmt->execute();
+        $stmt->close();
     }
 
-    public static function actualizar($id, $nombre, $descripcion, $precio, $existencias, $idCategoria = null) {
+    // Actualizar producto y su imagen.
+    public static function actualizar(
+        $id,
+        $nombre,
+        $descripcion,
+        $precio,
+        $existencias,
+        $idCategoria = null,
+        $imagen = null
+    ) {
         $db = Database::conectar();
-        $stmt = $db->prepare("UPDATE productos SET Nombre=?, Descripcion=?, Precio=?, Existencias=?, IdCategoria=? WHERE IdProducto=?");
-        $stmt->bind_param("ssdiii", $nombre, $descripcion, $precio, $existencias, $idCategoria, $id);
+
+        $stmt = $db->prepare(
+            "UPDATE productos
+             SET Nombre = ?,
+                 Descripcion = ?,
+                 Precio = ?,
+                 Existencias = ?,
+                 IdCategoria = ?,
+                 Imagen = ?
+             WHERE IdProducto = ?"
+        );
+
+        $stmt->bind_param(
+            "ssdiisi",
+            $nombre,
+            $descripcion,
+            $precio,
+            $existencias,
+            $idCategoria,
+            $imagen,
+            $id
+        );
+
         $stmt->execute();
+        $stmt->close();
     }
 
     public static function eliminar($id) {
@@ -59,17 +124,20 @@ class Producto {
 
     $stmt->bind_param("i", $id);
     $stmt->execute();
-
     $stmt->close();
+
     $db->close();
 
     return true;
 }
 
-    // Método adicional de apoyo para poblar el <select> de categorías en las vistas
     public static function obtenerCategorias() {
-        $db = Database::conectar();
-        return $db->query("SELECT * FROM categorias");
-    }
+    $db = Database::conectar();
+
+    $resultado = $db->query(
+        "SELECT * FROM categorias ORDER BY Nombre ASC"
+    );
+
+    return $resultado;
 }
-?>
+}

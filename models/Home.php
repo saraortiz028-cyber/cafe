@@ -252,6 +252,66 @@ class Home
         return $estadisticas;
     }
 
+    public static function obtenerVentasPorDia()
+{
+    $db = Database::conectar();
+
+    $lunes = new DateTime('monday this week');
+    $lunes->setTime(0, 0, 0);
+
+    $siguienteLunes = clone $lunes;
+    $siguienteLunes->modify('+7 days');
+
+    $inicio = $lunes->format('Y-m-d H:i:s');
+    $fin = $siguienteLunes->format('Y-m-d H:i:s');
+
+    $sql = "
+        SELECT
+            DATE(FechaVenta) AS fecha,
+            COUNT(*) AS total
+        FROM ventas
+        WHERE FechaVenta >= ?
+          AND FechaVenta < ?
+        GROUP BY DATE(FechaVenta)
+    ";
+
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("ss", $inicio, $fin);
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+
+    $ventasRegistradas = [];
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $ventasRegistradas[$fila['fecha']] = (int) $fila['total'];
+    }
+
+    $dias = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+    $ventasPorDia = [];
+    $hoy = new DateTime('today');
+
+    for ($i = 0; $i < 7; $i++) {
+
+        $fecha = clone $lunes;
+        $fecha->modify("+$i days");
+
+        $fechaTexto = $fecha->format('Y-m-d');
+
+        $ventasPorDia[] = [
+            'dia' => $dias[$i],
+            'ventas' => $fecha->format('Y-m-d') > $hoy->format('Y-m-d')
+                ? null
+                : ($ventasRegistradas[$fechaTexto] ?? 0)
+        ];
+    }
+
+    $stmt->close();
+    $db->close();
+
+    return $ventasPorDia;
+}
 
         /**
      * Obtiene los cinco productos más vendidos

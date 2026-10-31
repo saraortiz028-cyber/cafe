@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
-    <h1>Editar artículo de la compra #<?= (int) $compra->IdCompra ?></h1>
+    <h1 style="text-align: center;">Editar artículo de la compra #<?= (int) $compra->IdCompra ?></h1>
 
     <?php if (isset($error)): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
@@ -34,6 +34,11 @@
         <button type="submit">Guardar cambios</button>
     </form>
 
-    <p><a href="index.php?controlador=compra&accion=detalle&id=<?= (int) $compra->IdCompra ?>">Volver a la compra</a></p>
+    <p style="text-align: center;">
+        <a 
+        href="index.php?controlador=compra&accion=detalle&id=<?= (int) $compra->IdCompra ?>"  class="button button-dark">
+        Volver a la compra
+        </a>
+    </p>
 </body>
 </html>

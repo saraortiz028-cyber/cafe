@@ -34,10 +34,13 @@ class HomeController
             $productosMasVendidos =
                 Home::obtenerProductosMasVendidos();
 
+            $ventasPorDia = Home::obtenerVentasPorDia();
+
             echo json_encode([
                 'ok' => true,
                 'estadisticas' => $estadisticas,
-                'productos' => $productosMasVendidos
+                'productos' => $productosMasVendidos,
+                'ventasPorDia' => $ventasPorDia
             ], JSON_UNESCAPED_UNICODE);
 
         } catch (Throwable $error) {

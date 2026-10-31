@@ -878,6 +878,66 @@ form button[type="submit"]:hover {
 }
 
 /* ==================================================
+   SELECTOR DE IMÁGENES DE PRODUCTOS
+================================================== */
+
+.imagen-upload {
+    margin-bottom: 22px;
+}
+
+.imagen-upload input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #f8f7f2;
+    border: 1px solid #d8d5c9;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--ink);
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Botón para seleccionar archivo */
+
+.imagen-upload input[type="file"]::file-selector-button {
+    padding: 9px 15px;
+    margin-right: 12px;
+    background: var(--green);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.imagen-upload input[type="file"]::file-selector-button:hover {
+    background: #263b2b;
+}
+
+/* Información sobre los archivos */
+
+.imagen-ayuda {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #f5f3ec;
+    border-left: 3px solid var(--green);
+    border-radius: 3px;
+    color: #777568;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.imagen-ayuda strong {
+    color: #4a493c;
+}
+
+/* ==================================================
    CATÁLOGO PÚBLICO — CAFÉ AROMA
 ================================================== */
 
@@ -1750,6 +1810,21 @@ DISEÑO RESPONSIVE
     color: #77766d;
     margin: 0 0 20px 0;
 }
+
+/* ==================================================
+   GRAFICO
+================================================== */
+
+.dash-chart-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+}
+
+.dash-card {
+    margin-bottom: 25px;
+}
+
 /* ==================================================
    PRODUCTOS MÁS VENDIDOS
 ================================================== */

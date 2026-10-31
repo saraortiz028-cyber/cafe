@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="public/css/cafeteria.css">
 </head>
 <body>
-    <h1>Editar artículo de la venta #<?= (int) $venta->IdVenta ?></h1>
+    <h1 style="text-align: center;">Editar artículo de la venta #<?= (int) $venta->IdVenta ?></h1>
     <?php if (isset($error)): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
     <?php endif; ?>
@@ -26,6 +26,12 @@
                value="<?= (int) $detalle->Cantidad ?>" required>
         <button type="submit">Guardar cambios</button>
     </form>
-    <p><a href="index.php?controlador=venta&accion=detalle&id=<?= (int) $venta->IdVenta ?>">Volver a la venta</a></p>
-</body>
+
+    <p style="text-align: center;">
+    <a href="index.php?controlador=venta&accion=detalle&id=<?= (int) $venta->IdVenta ?>" class="button button-dark">
+        Volver a la venta
+    </a>
+    </p>
+
+    </body>
 </html>

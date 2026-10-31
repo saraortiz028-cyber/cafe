@@ -45,15 +45,15 @@
 
     <h2 class="dash-title">Dashboard</h2>
 
-    <p class="dash-subtitle">
-        Comparación semanal:
-        <strong>
-            <?= htmlspecialchars($estadisticas['periodo_anterior']) ?>
-        </strong>
-        vs.
-        <strong>
-            <?= htmlspecialchars($estadisticas['periodo_actual']) ?>
-        </strong>
+    <p class="dash-subtitle" id="periodo-dashboard">
+    Comparación semanal:
+    <strong> 
+        <?= htmlspecialchars($estadisticas['periodo_anterior']) ?> 
+    </strong>
+    vs.
+    <strong> 
+        <?= htmlspecialchars($estadisticas['periodo_actual']) ?> 
+    </strong>
     </p>
 
     </div>
@@ -67,7 +67,7 @@
                     <span class="dash-card-title">Ventas de la semana</span>
                 </div>
                 <div class="dash-card-body">
-                    <p class="dash-card-value" id="ventas-semana">C$ <?= number_format((int)($estadisticas['ventas_semana'] ?? 0)) ?></p>
+                    <p class="dash-card-value" id="ventas-semana"> <?= number_format((int)($estadisticas['ventas_semana'] ?? 0)) ?></p>
                     <span id="variacion-ventas" class="dash-card-trend <?= (($estadisticas['variacion_ventas']['tipo'] ?? '') === 'subida') ? 'trend-up' : 'trend-neutral' ?>">
                         <?= htmlspecialchars($estadisticas['variacion_ventas']['texto'] ?? 'Sin datos') ?>
                     </span>
@@ -103,6 +103,14 @@
             </div>
         </div>
 
+        <div class="dash-card">
+            <h3>Ventas de la semana</h3>
+
+            <div class="dash-chart-container">
+                <canvas id="grafico-ventas"></canvas>
+            </div>
+        </div>
+
         <!-- Productos más vendidos con barra de progreso -->
         <div class="dash-section-card">
             <h3 class="dash-section-title">Productos más vendidos</h3>
@@ -113,7 +121,7 @@
                     $maxUnidades = max(array_column($productosMasVendidos, 'unidades_vendidas'));
                     if ($maxUnidades <= 0) $maxUnidades = 1;
                 ?>
-                <div class="dash-product-list">
+                <div class="dash-product-list" id="lista-productos">
 
     <?php foreach ($productosMasVendidos as $prod):
 
@@ -258,7 +266,8 @@
             <strong>Cafetería</strong> 
         </div> 
         <p>Sistema de administración <span>&bull;</span> Panel Principal</p> 
-    </footer> 
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="public/js/dashboard.js"></script> 
 </body> 
-<script src="public/js/dashboard.js"></script>
 </html>

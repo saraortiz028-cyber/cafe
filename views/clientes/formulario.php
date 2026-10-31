@@ -35,8 +35,7 @@
 
         <label for="correo">Correo Electronico:</label>
         <input type="email" id="correo" name="correo" placeholder="Correo Electronico" maxlength="60"
-        value="<?= htmlspecialchars($cliente->Email ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
-
+        value="<?= htmlspecialchars($cliente->Correo ?? '', ENT_QUOTES, 'UTF-8') ?>"
         <label for="direccion">Direccion:</label>
         <input type="text" id="direccion" name="direccion" placeholder="Direccion" maxlength="200"
         value="<?= htmlspecialchars($cliente->Direccion ?? '', ENT_QUOTES, 'UTF-8') ?>">
