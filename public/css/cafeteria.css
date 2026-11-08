@@ -1307,8 +1307,12 @@ input, select, button, textarea {
 
 .recibo-actions {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
     flex-wrap: wrap;
-    gap: 10px;
+    width: 100%;
+    margin: 25px auto;
 }
 
 .recibo-actions button {
@@ -1691,7 +1695,625 @@ DISEÑO RESPONSIVE
         transition-duration: 0.01ms !important;
     }
 }
+/* =========================================
+   CONSULTA DE PEDIDOS
+========================================= */
 
+.pedido-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 45px 25px 60px;
+}
+
+.pedido-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pedido-header h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.pedido-header p {
+    color: #777;
+    font-size: 15px;
+}
+
+/* FORMULARIO DE CONSULTA DE PEDIDOS */
+
+.pedido-busqueda {
+    margin-bottom: 30px;
+}
+
+.pedido-busqueda form {
+    max-width: 750px;
+}
+
+.pedido-busqueda input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 48px;
+    font-size: 14px;
+}
+
+.pedido-busqueda small {
+    display: block;
+    color: #888;
+    margin-top: -12px;
+    margin-bottom: 20px;
+}
+
+/* PRESENTACIÓN INICIAL */
+
+.pedido-inicial {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 45px 25px;
+    text-align: center;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+.pedido-icono {
+    font-size: 48px;
+    color: #a87545;
+    margin-bottom: 18px;
+}
+
+.pedido-inicial h2 {
+    margin-bottom: 12px;
+}
+
+.pedido-inicial p {
+    color: #777;
+    line-height: 1.6;
+}
+
+/* RESULTADOS */
+
+.pedido-resultados {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+}
+
+.pedido-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.pedido-etiqueta {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.pedido-resumen h2 {
+    font-size: 23px;
+    margin: 0;
+}
+
+.pedido-estado {
+    padding: 9px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.estado-pendiente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.estado-aprobado {
+    background: #d4edda;
+    color: #155724;
+}
+
+.estado-rechazado {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* MENSAJE DEL ESTADO */
+
+.pedido-mensaje {
+    padding: 16px;
+    margin: 22px 0;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+
+.pedido-mensaje p {
+    margin: 0;
+    color: #555;
+}
+
+/* DATOS GENERALES */
+
+.pedido-datos {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+
+.pedido-dato span {
+    display: block;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.pedido-dato strong {
+    font-size: 16px;
+}
+
+/* TABLA DE PRODUCTOS */
+
+.pedido-productos h3 {
+    margin-bottom: 18px;
+}
+
+.pedido-tabla-contenedor {
+    overflow-x: auto;
+}
+
+.pedido-tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pedido-tabla th,
+.pedido-tabla td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.pedido-tabla th {
+    background: #f7f5f2;
+    font-size: 13px;
+}
+
+.pedido-tabla td {
+    font-size: 14px;
+}
+
+.pedido-tabla tfoot td {
+    font-weight: bold;
+    background: #fafafa;
+}
+
+/* PEDIDO NO ENCONTRADO */
+
+.pedido-no-encontrado {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px;
+    text-align: center;
+    background: #fff;
+    border-radius: 12px;
+    border-left: 4px solid #dc3545;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+.pedido-no-encontrado h3 {
+    color: #dc3545;
+    margin-bottom: 12px;
+}
+
+.pedido-no-encontrado p {
+    color: #777;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .pedido-container {
+        padding: 30px 15px;
+    }
+
+    .pedido-input-group {
+        flex-direction: column;
+    }
+
+    .pedido-resumen {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .pedido-datos {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .pedido-resultados {
+        padding: 18px;
+    }
+
+    .pedido-tabla th,
+    .pedido-tabla td {
+        padding: 11px 8px;
+        font-size: 12px;
+    }
+}
+/* ==========================================
+   PÁGINA DE PEDIDOS // ESTE SI REACCIONA
+========================================== */
+
+.pedidos-page {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 35px 24px 55px;
+}
+
+/* HERO */
+
+.pedidos-hero {
+    position: relative;
+    text-align: center;
+    padding: 65px 25px;
+    background: #f5eee6;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.pedidos-eyebrow,
+.pedidos-etiqueta {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #a87545;
+    margin-bottom: 12px;
+}
+
+.pedidos-hero h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.pedidos-hero p {
+    max-width: 620px;
+    margin: 0 auto;
+    color: #777;
+    line-height: 1.7;
+}
+
+.pedidos-decoracion {
+    display: block;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+/* CONTENIDO */
+
+.pedidos-contenido {
+    max-width: 950px;
+    margin: 45px auto 0;
+}
+
+.pedidos-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.pedidos-encabezado h2 {
+    margin: 0;
+}
+
+.pedidos-encabezado p {
+    color: #777;
+    font-size: 14px;
+}
+
+/* BÚSQUEDA */
+
+.pedido-busqueda {
+    background: #fff;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+.pedido-busqueda label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.pedido-input-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pedido-input-group input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.pedido-busqueda small {
+    display: block;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* ESTADO INICIAL */
+
+.pedidos-inicial {
+    text-align: center;
+    padding: 45px 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+}
+
+.pedidos-inicial-icono {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.pedidos-inicial h2 {
+    margin-bottom: 12px;
+}
+
+.pedidos-inicial p {
+    max-width: 620px;
+    margin: 0 auto;
+    color: #777;
+    line-height: 1.7;
+}
+
+/* RESULTADOS */
+
+.pedido-resultados {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+.pedido-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #eee;
+}
+
+.pedido-resumen h2 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.pedido-estado {
+    padding: 9px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.estado-pendiente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.estado-aprobado {
+    background: #d4edda;
+    color: #155724;
+}
+
+.estado-rechazado {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* MENSAJE */
+
+.pedido-mensaje {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    margin: 22px 0;
+    background: #f8f5f1;
+    border-radius: 8px;
+}
+
+.pedido-mensaje span {
+    font-size: 25px;
+}
+
+.pedido-mensaje p {
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* DATOS */
+
+.pedido-datos {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 35px;
+}
+
+.pedido-dato span {
+    display: block;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 7px;
+}
+
+.pedido-dato strong {
+    font-size: 16px;
+}
+
+/* TABLA */
+
+.pedido-productos-encabezado {
+    margin-bottom: 18px;
+}
+
+.pedido-productos-encabezado h3 {
+    margin: 0;
+}
+
+.pedido-tabla-contenedor {
+    overflow-x: auto;
+}
+
+.pedido-tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pedido-tabla th,
+.pedido-tabla td {
+    padding: 15px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.pedido-tabla th {
+    background: #a96d30;
+    font-size: 13px;
+}
+
+.pedido-tabla td {
+    font-size: 14px;
+}
+
+.pedido-tabla tfoot td {
+    font-weight: 700;
+    background: #faf8f6;
+}
+
+/* NO ENCONTRADO */
+
+.pedido-no-encontrado {
+    text-align: center;
+    padding: 35px 25px;
+    background: #fff;
+    border-radius: 12px;
+    border-left: 4px solid #b96b54;
+}
+
+.pedido-no-encontrado > span {
+    font-size: 35px;
+}
+
+.pedido-no-encontrado h3 {
+    margin: 12px 0;
+}
+
+.pedido-no-encontrado p {
+    color: #777;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+
+    .pedidos-page {
+        padding: 25px 15px;
+    }
+
+    .pedidos-hero {
+        padding: 45px 18px;
+    }
+
+    .pedidos-hero h1 {
+        font-size: 27px;
+    }
+
+    .pedidos-encabezado {
+        display: block;
+    }
+
+    .pedido-input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pedido-resumen {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .pedido-datos {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .pedido-resultados {
+        padding: 20px;
+    }
+
+    .pedido-tabla th,
+    .pedido-tabla td {
+        padding: 11px 8px;
+        font-size: 12px;
+    }
+}
+/* Reducir espacio entre el formulario y el mensaje */
+.pedido-busqueda {
+    margin-bottom: 10px;
+}
+
+.pedidos-inicial {
+    margin-top: 0;
+}
+
+/* BOTONES PARA GESTIONAR PEDIDOS */
+
+.pedido-btn-aprobar {
+    background-color: #218838;
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.pedido-btn-aprobar:hover {
+    background-color: #19692c;
+}
+
+.pedido-btn-rechazar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.pedido-btn-rechazar:hover {
+    background-color: #b02a37;
+} 
 /* ==================================================
    ESTILOS NUEVOS PARA EL DASHBOARD DE EMPLEADOS
    ================================================== */

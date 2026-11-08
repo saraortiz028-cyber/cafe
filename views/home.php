@@ -31,12 +31,12 @@
             <div class="hero-actions">
                 <a href="index.php?controlador=publico&accion=productos"
                    class="button button-dark">
-                    Ver productos
+                    Ver catalogo
                 </a>
 
-                <a href="index.php?controlador=publico&accion=categorias"
+                <a href="index.php?controlador=publico&accion=pedido"
                    class="button button-dark">
-                    Explorar categorías <span>&rarr;</span>
+                    Ver pedidos
                 </a>
             </div>
         </div>

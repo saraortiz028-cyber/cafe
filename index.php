@@ -18,7 +18,8 @@ $controladoresAdmin = [
     'sucursal',
     'compra',
     'producto',
-    'venta'
+    'venta',
+    'pedido'
 ];
 
 // Bloquear acceso administrativo si no ha iniciado sesión
@@ -131,6 +132,28 @@ else if ($controlador == 'venta') {
     $controladorInstanciado->$accion();
 }
 
+else if ($controlador == 'pedido') {
+
+    require_once "controllers/PedidoController.php";
+
+    $controladorInstanciado = new PedidoController();
+
+    if (in_array($accion, [
+        'index',
+        'detalle',
+        'aprobar',
+        'rechazar'
+    ], true)) {
+
+        $controladorInstanciado->$accion();
+
+    } else {
+
+        http_response_code(404);
+        echo "Acción no encontrada";
+    }
+}
+
 else if ($controlador == 'publico') {
     require_once "controllers/PublicoController.php";
 
@@ -138,7 +161,7 @@ else if ($controlador == 'publico') {
 
     if (in_array(
     $accion,
-    ['productos', 'categorias', 'sucursales', 'confirmarCompra', 'recibo'],
+    ['productos', 'categorias', 'sucursales', 'confirmarPedido', 'pedido', 'recibo'],
     true
 )) {
     $controladorInstanciado->$accion();

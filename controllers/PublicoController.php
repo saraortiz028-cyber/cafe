@@ -3,6 +3,7 @@
 require_once "models/Productos.php";
 require_once "models/Categorias.php";
 require_once "models/Sucursal.php";
+require_once "models/Pedido.php";
 require_once "models/Venta.php";
 require_once "models/DetalleVenta.php";
 
@@ -26,7 +27,8 @@ class PublicoController
         require "views/publico/sucursales.php";
     }
 
-    public function confirmarCompra()
+    // Registrar un pedido desde el catálogo público.
+    public function confirmarPedido()
     {
         if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
             header("Location: index.php?controlador=publico&accion=productos");
@@ -50,7 +52,7 @@ class PublicoController
             ];
         }
 
-        $detallesCompra = [];
+        $detallesPedido = [];
 
         foreach ($productosSeleccionados as $id => $cantidadIngresada) {
             $idProducto = filter_var($id, FILTER_VALIDATE_INT);
@@ -72,7 +74,7 @@ class PublicoController
             }
 
             if ($cantidad > 0) {
-                $detallesCompra[] = [
+                $detallesPedido[] = [
                     'id_producto' => $idProducto,
                     'cantidad' => $cantidad,
                     'precio' => $productos[$idProducto]['precio']
@@ -80,85 +82,98 @@ class PublicoController
             }
         }
 
-        if (empty($detallesCompra) && !isset($error)) {
+        if (empty($detallesPedido) && !isset($error)) {
             $error = "Selecciona al menos un producto.";
         }
 
         if (!isset($error)) {
             try {
                 require_once "config/database.php";
+
                 $db = Database::conectar();
 
-                // Obtener un empleado y una sucursal existentes.
-                $resultadoEmpleado = $db->query(
-                    "SELECT IdEmpleado FROM empleados ORDER BY IdEmpleado LIMIT 1"
-                );
-
+                // Obtener una sucursal existente.
                 $resultadoSucursal = $db->query(
-                    "SELECT IdSucursal FROM sucursales ORDER BY IdSucursal LIMIT 1"
+                    "SELECT IdSucursal FROM sucursales
+                     ORDER BY IdSucursal LIMIT 1"
                 );
 
-                $empleado = $resultadoEmpleado->fetch_object();
                 $sucursal = $resultadoSucursal->fetch_object();
 
                 $db->close();
 
-                if (!$empleado || !$sucursal) {
+                if (!$sucursal) {
                     throw new Exception(
-                        "Se necesita al menos un empleado y una sucursal registrados."
+                        "No hay sucursales registradas."
                     );
                 }
 
-                // Registrar la compra y descontar existencias.
-                $idVenta = Venta::guardarConDetalles(
+                // Registrar el pedido sin cliente ni empleado.
+                // El empleado se asignará cuando apruebe el pedido.
+                $pedidoCreado = Pedido::crearConDetalles(
                     null,
-                    (int) $empleado->IdEmpleado,
                     (int) $sucursal->IdSucursal,
-                    $detallesCompra
+                    $detallesPedido
                 );
 
-                // Reutilizar la información del recibo administrativo.
+                // Enviar al cliente a consultar su pedido.
                 header(
-                    "Location: index.php?controlador=publico&accion=recibo&id="
-                    . $idVenta
+                    "Location: index.php?controlador=publico&accion=pedido&numero="
+                    . urlencode($pedidoCreado['numero'])
                 );
                 exit;
 
             } catch (Throwable $exception) {
                 error_log(
-                    "Error en compra pública: " . $exception->getMessage()
+                    "Error al registrar pedido público: "
+                    . $exception->getMessage()
                 );
 
-                $error = strpos(
-                    $exception->getMessage(),
-                    "No hay existencias suficientes"
-                ) !== false
-                    ? $exception->getMessage()
-                    : "No se pudo completar la compra. Inténtalo nuevamente.";
+                $error = "No se pudo registrar el pedido. Inténtalo nuevamente.";
             }
         }
 
         // Si ocurre un error, volver a mostrar los productos.
-        $resultado = Producto::obtenerTodos();
-        $productos = $resultado;
+        $productos = Producto::obtenerTodos();
 
         require "views/publico/productos.php";
     }
 
-    public function recibo()
+    // Consultar el estado de un pedido.
+    // Consultar el estado de un pedido.
+public function pedido()
 {
-    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    $numero = trim($_GET['numero'] ?? '');
 
-    $venta = $id ? Venta::obtenerParaRecibo($id) : null;
+    $pedido = null;
+    $detalles = [];
 
-    if (!$venta) {
-        http_response_code(404);
-        echo "La compra solicitada no existe.";
-        return;
+    if ($numero !== '') {
+        $pedido = Pedido::obtenerPorNumero($numero);
+
+        if ($pedido) {
+            $detalles = Pedido::obtenerDetalles($pedido->IdPedido);
+        }
     }
 
-    $detalles = DetalleVenta::obtenerPorVenta($id);
-
-    require "views/publico/recibo.php";
+    require "views/publico/pedidos.php";
 }
+
+    // Se conserva para consultar recibos de ventas existentes.
+    public function recibo()
+    {
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        $venta = $id ? Venta::obtenerParaRecibo($id) : null;
+
+        if (!$venta) {
+            http_response_code(404);
+            echo "La compra solicitada no existe.";
+            return;
+        }
+
+        $detalles = DetalleVenta::obtenerPorVenta($id);
+
+        require "views/publico/recibo.php";
+    }
 }

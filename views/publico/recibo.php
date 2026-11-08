@@ -20,12 +20,12 @@
 
         <p>
             <strong>Folio:</strong>
-            SIM-<?= date('YmdHis') ?>
+            #<?= (int) $venta->IdVenta ?>
         </p>
 
         <p>
             <strong>Fecha:</strong>
-            <?= date('d/m/Y H:i:s') ?>
+            <?= htmlspecialchars($venta->FechaVenta, ENT_QUOTES, 'UTF-8') ?>
         </p>
 
         <p>
@@ -96,22 +96,32 @@
 
         <div class="recibo-actions">
 
-            <button type="button" onclick="window.print()">
-                Imprimir recibo
-            </button>
+    <button type="button" onclick="window.print()">
+        Imprimir recibo
+    </button>
 
-            <a
-    href="index.php?controlador=publico&accion=productos"
-    class="button button-dark"
->
-    Hacer otra compra
-</a>
+    <?php if (($_GET['origen'] ?? '') === 'pedido'): ?>
 
-            <a href="index.php" class="button button-dark">
-                Volver al inicio
-            </a>
+        <a href="index.php?controlador=pedido&accion=index"
+           class="button button-dark">
+            Volver a pedidos
+        </a>
 
-        </div>
+    <?php else: ?>
+
+        <a href="index.php?controlador=publico&accion=productos"
+           class="button button-dark">
+            Hacer otra compra
+        </a>
+
+        <a href="index.php"
+           class="button button-dark">
+            Volver al inicio
+        </a>
+
+    <?php endif; ?>
+
+</div>
 
     </main>
 

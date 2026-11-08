@@ -44,7 +44,7 @@
         <form
             class="compra-form"
             method="POST"
-            action="index.php?controlador=publico&accion=confirmarCompra"
+            action="index.php?controlador=publico&accion=confirmarPedido"
         >
 
             <div class="compra-grid">
@@ -151,7 +151,7 @@
                     </p>
 
                     <button type="submit">
-                        Confirmar compra y generar recibo
+                        Enviar pedido
                     </button>
 
                 </div>

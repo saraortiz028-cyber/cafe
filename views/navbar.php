@@ -11,6 +11,10 @@
 <nav class="main-nav">
 
     <div class="nav-modules">
+        <a href="index.php?controlador=pedido&accion=index"
+            class="<?= ($_GET['controlador'] ?? '') === 'pedido' ? 'active' : '' ?>">
+            Pedidos
+        </a>
         <a href="index.php?controlador=venta&accion=index"
             class="<?= ($_GET['controlador'] ?? '') === 'venta' ? 'active' : '' ?>">
             Ventas

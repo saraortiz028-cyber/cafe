@@ -23,7 +23,7 @@
             </p> 
             <div class="hero-actions"> 
                 <a href="index.php?controlador=producto&accion=index" class="button button-dark">Gestionar Productos</a> 
-                <a href="index.php?controlador=venta&accion=index" class="button button-dark">Ver Ventas<span>&rarr;</span></a> 
+                <a href="index.php?controlador=pedido&accion=index" class="button button-dark">Ver Pedidos</a> 
             </div> 
         </div> 
  

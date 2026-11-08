@@ -22,7 +22,7 @@
             y descubre tus favoritos de nuestra cafetería.
         </p>
 
-        <span class="categorias-decoracion">☕</span>
+        <span class="categorias-decoracion">🍪</span>
     </section>
 
     <section class="categorias-contenido">
