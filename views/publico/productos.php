@@ -47,6 +47,20 @@
             action="index.php?controlador=publico&accion=confirmarPedido"
         >
 
+<div class="campo-sucursal">
+    <label for="id_sucursal">Sucursal donde recogerás tu pedido:</label>
+
+    <select name="id_sucursal" id="id_sucursal" required>
+        <option value="">Selecciona una sucursal</option>
+
+        <?php while ($sucursal = $sucursales->fetch_object()): ?>
+            <option value="<?= $sucursal->IdSucursal ?>">
+                <?= htmlspecialchars($sucursal->Nombre) ?>
+            </option>
+        <?php endwhile; ?>
+    </select>
+</div>
+
             <div class="compra-grid">
 
                 <?php if ($productos && $productos->num_rows > 0): ?>

@@ -11,8 +11,10 @@ class PublicoController
 {
     public function productos()
     {
-        $productos = Producto::obtenerTodos();
-        require "views/publico/productos.php";
+    $productos = Producto::obtenerTodos();
+    $sucursales = Sucursal::obtenerTodos();
+
+    require "views/publico/productos.php";
     }
 
     public function categorias()
@@ -92,28 +94,36 @@ class PublicoController
 
                 $db = Database::conectar();
 
-                // Obtener una sucursal existente.
-                $resultadoSucursal = $db->query(
-                    "SELECT IdSucursal FROM sucursales
-                     ORDER BY IdSucursal LIMIT 1"
-                );
+                // Obtener la sucursal seleccionada por el cliente.
+$idSucursal = filter_input(INPUT_POST, 'id_sucursal', FILTER_VALIDATE_INT);
 
-                $sucursal = $resultadoSucursal->fetch_object();
+if ($idSucursal === false || $idSucursal === null || $idSucursal <= 0) {
+    throw new Exception("Debes seleccionar una sucursal válida.");
+}
 
-                $db->close();
+// Verificar que la sucursal exista.
+$stmtSucursal = $db->prepare(
+    "SELECT IdSucursal FROM sucursales WHERE IdSucursal = ?"
+);
 
-                if (!$sucursal) {
-                    throw new Exception(
-                        "No hay sucursales registradas."
-                    );
-                }
+$stmtSucursal->bind_param("i", $idSucursal);
+$stmtSucursal->execute();
+
+$resultadoSucursal = $stmtSucursal->get_result();
+$sucursal = $resultadoSucursal->fetch_object();
+
+$stmtSucursal->close(); 
+
+if (!$sucursal) {
+    throw new Exception("La sucursal seleccionada no existe.");
+}
 
                 // Registrar el pedido sin cliente ni empleado.
                 // El empleado se asignará cuando apruebe el pedido.
                 $pedidoCreado = Pedido::crearConDetalles(
-                    null,
-                    (int) $sucursal->IdSucursal,
-                    $detallesPedido
+                null,
+                $idSucursal,
+                $detallesPedido
                 );
 
                 // Enviar al cliente a consultar su pedido.
@@ -135,9 +145,10 @@ class PublicoController
 
         // Si ocurre un error, volver a mostrar los productos.
         $productos = Producto::obtenerTodos();
+        $sucursales = Sucursal::obtenerTodos();
 
         require "views/publico/productos.php";
-    }
+        }
 
     // Consultar el estado de un pedido.
     // Consultar el estado de un pedido.
