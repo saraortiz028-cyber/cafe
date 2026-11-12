@@ -165,6 +165,16 @@ $numeroIngresado = htmlspecialchars(
 
                         </div>
 
+                        <div class="pedido-dato">
+
+                        <span>Sucursal donde se recogerá el pedido</span>
+
+                        <strong>
+                        <?= htmlspecialchars($pedido->NombreSucursal) ?>
+                        </strong>
+
+                        </div>
+
                     </div>
 
 

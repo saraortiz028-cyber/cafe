@@ -179,11 +179,10 @@
 
         <div style="margin-top: 20px; text-align: center;">
 
-            <a href="index.php?controlador=publico&accion=recibo&id=<?= (int) $pedido->IdVenta ?>"
-               class="button button-dark">
-                Ver recibo de venta
-            </a>
-
+            <a href="index.php?controlador=venta&accion=recibo&id=<?= (int) $pedido->IdVenta ?>&origen=pedido"
+   class="button button-dark">
+    Ver recibo de venta
+</a>
         </div>
 
     <?php endif; ?>

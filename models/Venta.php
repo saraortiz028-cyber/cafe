@@ -16,28 +16,71 @@ class Venta {
     }
 
     public static function obtenerParaRecibo($id) {
-        $db = Database::conectar();
-        $stmt = $db->prepare(
-            "SELECT v.*, c.Nombres AS ClienteNombres, c.Apellidos AS ClienteApellidos
-             FROM ventas v
-             LEFT JOIN clientes c ON c.IdCliente = v.IdCliente
-             WHERE v.IdVenta = ?"
-        );
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_object();
+    $db = Database::conectar();
+
+    $stmt = $db->prepare(
+        "SELECT
+            v.*,
+            c.Nombres AS ClienteNombres,
+            c.Apellidos AS ClienteApellidos,
+            s.Nombre AS NombreSucursal
+         FROM ventas v
+         LEFT JOIN clientes c
+            ON c.IdCliente = v.IdCliente
+         INNER JOIN sucursales s
+            ON s.IdSucursal = v.IdSucursal
+         WHERE v.IdVenta = ?"
+    );
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_object();
     }
 
     public static function guardar($fecha, $idCliente, $idEmpleado, $idSucursal) {
-        $db = Database::conectar();
-        $stmt = $db->prepare(
-            "INSERT INTO ventas (FechaVenta, IdCliente, IdEmpleado, IdSucursal, Total)
-             VALUES (?, ?, ?, ?, 0)"
-        );
-        $stmt->bind_param("siii", $fecha, $idCliente, $idEmpleado, $idSucursal);
-        $stmt->execute();
-        return $db->insert_id;
+    $db = Database::conectar();
+
+    // Consultar la tasa de IVA configurada.
+    $resultadoIVA = $db->query(
+        "SELECT IVA FROM configuracion
+         ORDER BY IdConfiguracion DESC
+         LIMIT 1"
+    );
+
+    $configuracion = $resultadoIVA->fetch_object();
+
+    if (!$configuracion) {
+        throw new Exception("No se encontró la configuración del IVA.");
     }
+
+    $tasaIVA = (float) $configuracion->IVA;
+
+    // Crear la venta con IVA y total inicialmente en cero.
+    $stmt = $db->prepare(
+        "INSERT INTO ventas
+         (FechaVenta, IdCliente, IdEmpleado, IdSucursal, Total, IVA, TasaIVA)
+         VALUES (?, ?, ?, ?, 0, 0, ?)"
+    );
+
+    $stmt->bind_param(
+        "siiid",
+        $fecha,
+        $idCliente,
+        $idEmpleado,
+        $idSucursal,
+        $tasaIVA
+    );
+
+    $stmt->execute();
+
+    $idVenta = $db->insert_id;
+
+    $stmt->close();
+    $db->close();
+
+    return $idVenta;
+}
 
 public static function guardarConDetalles($idCliente, $idEmpleado, $idSucursal, array $detalles) {
     $db = Database::conectar();
@@ -50,19 +93,34 @@ public static function guardarConDetalles($idCliente, $idEmpleado, $idSucursal, 
 
         $fecha = date('Y-m-d');
 
-        // Crear la venta
-        $stmtVenta = $db->prepare(
-            "INSERT INTO ventas (FechaVenta, IdCliente, IdEmpleado, IdSucursal, Total)
-             VALUES (?, ?, ?, ?, 0)"
-        );
+        // Consultar la tasa de IVA configurada.
+$resultadoIVA = $db->query(
+    "SELECT IVA FROM configuracion ORDER BY IdConfiguracion DESC LIMIT 1"
+);
 
-        $stmtVenta->bind_param(
-            "siii",
-            $fecha,
-            $idCliente,
-            $idEmpleado,
-            $idSucursal
-        );
+$configuracion = $resultadoIVA->fetch_object();
+
+if (!$configuracion) {
+    throw new Exception("No se encontró la configuración del IVA.");
+}
+
+$tasaIVA = (float) $configuracion->IVA;
+
+// Crear la venta.
+$stmtVenta = $db->prepare(
+    "INSERT INTO ventas
+    (FechaVenta, IdCliente, IdEmpleado, IdSucursal, Total, IVA, TasaIVA)
+    VALUES (?, ?, ?, ?, 0, 0, ?)"
+);
+
+$stmtVenta->bind_param(
+    "siiid",
+    $fecha,
+    $idCliente,
+    $idEmpleado,
+    $idSucursal,
+    $tasaIVA
+);
 
         $stmtVenta->execute();
         $idVenta = $db->insert_id;
@@ -149,19 +207,35 @@ public static function guardarConDetalles($idCliente, $idEmpleado, $idSucursal, 
             }
         }
 
-        // Calcular el total de la venta
-        $stmtTotal = $db->prepare(
-            "UPDATE ventas
-             SET Total = (
-                 SELECT COALESCE(SUM(SubTotal), 0)
-                 FROM detalle_venta
-                 WHERE IdVenta = ?
-             )
-             WHERE IdVenta = ?"
-        );
+        // Calcular subtotal, IVA y total final.
+$stmtTotal = $db->prepare(
+    "UPDATE ventas
+     SET IVA = ROUND(
+         (SELECT COALESCE(SUM(SubTotal), 0)
+          FROM detalle_venta
+          WHERE IdVenta = ?) * (TasaIVA / 100), 2
+     ),
+     Total = (
+         SELECT COALESCE(SUM(SubTotal), 0)
+         FROM detalle_venta
+         WHERE IdVenta = ?
+     ) + ROUND(
+         (SELECT COALESCE(SUM(SubTotal), 0)
+          FROM detalle_venta
+          WHERE IdVenta = ?) * (TasaIVA / 100), 2
+     )
+     WHERE IdVenta = ?"
+);
 
-        $stmtTotal->bind_param("ii", $idVenta, $idVenta);
-        $stmtTotal->execute();
+$stmtTotal->bind_param(
+    "iiii",
+    $idVenta,
+    $idVenta,
+    $idVenta,
+    $idVenta
+);
+
+$stmtTotal->execute();
 
         // Confirmar todos los cambios
         $db->commit();

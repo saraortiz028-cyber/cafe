@@ -139,25 +139,27 @@ class Pedido
     // ==================================================
 
     public static function obtenerPorNumero($numeroPedido)
-    {
-        $db = Database::conectar();
+{
+    $db = Database::conectar();
 
-        $stmt = $db->prepare(
-            "SELECT *
-             FROM pedido
-             WHERE NumeroPedido = ?"
-        );
+    $stmt = $db->prepare(
+        "SELECT p.*, s.Nombre AS NombreSucursal
+         FROM pedido p
+         INNER JOIN sucursales s
+            ON p.IdSucursal = s.IdSucursal
+         WHERE p.NumeroPedido = ?"
+    );
 
-        $stmt->bind_param("s", $numeroPedido);
-        $stmt->execute();
+    $stmt->bind_param("s", $numeroPedido);
+    $stmt->execute();
 
-        $pedido = $stmt->get_result()->fetch_object();
+    $pedido = $stmt->get_result()->fetch_object();
 
-        $stmt->close();
-        $db->close();
+    $stmt->close();
+    $db->close();
 
-        return $pedido;
-    }
+    return $pedido;
+}
 
 
     // ==================================================
@@ -238,26 +240,43 @@ class Pedido
                 throw new Exception("El pedido no contiene productos.");
             }
 
-            // Crear la venta.
-            $fecha = date('Y-m-d');
+            // Consultar la tasa de IVA configurada.
+$resultadoIVA = $db->query(
+    "SELECT IVA
+     FROM configuracion
+     ORDER BY IdConfiguracion DESC
+     LIMIT 1"
+);
 
-            $stmtVenta = $db->prepare(
-                "INSERT INTO ventas
-                (FechaVenta, IdCliente, IdEmpleado, IdSucursal, Total)
-                VALUES (?, ?, ?, ?, 0)"
-            );
+$configuracion = $resultadoIVA->fetch_object();
 
-            $stmtVenta->bind_param(
-                "siii",
-                $fecha,
-                $pedido->IdCliente,
-                $idEmpleado,
-                $pedido->IdSucursal
-            );
+if (!$configuracion) {
+    throw new Exception("No se encontró la configuración del IVA.");
+}
 
-            $stmtVenta->execute();
+$tasaIVA = (float) $configuracion->IVA;
 
-            $idVenta = $db->insert_id;
+// Crear la venta.
+$fecha = date('Y-m-d');
+
+$stmtVenta = $db->prepare(
+    "INSERT INTO ventas
+    (FechaVenta, IdCliente, IdEmpleado, IdSucursal, Total, IVA, TasaIVA)
+    VALUES (?, ?, ?, ?, 0, 0, ?)"
+);
+
+$stmtVenta->bind_param(
+    "siiid",
+    $fecha,
+    $pedido->IdCliente,
+    $idEmpleado,
+    $pedido->IdSucursal,
+    $tasaIVA
+);
+
+$stmtVenta->execute();
+
+$idVenta = $db->insert_id;
 
             // Preparar consultas de inventario y detalles.
             $stmtStock = $db->prepare(
@@ -347,15 +366,28 @@ class Pedido
                 }
             }
 
-            // Actualizar total de la venta.
-            $stmtTotal = $db->prepare(
-                "UPDATE ventas
-                 SET Total = ?
-                 WHERE IdVenta = ?"
-            );
+            // Calcular IVA y total final.
+$iva = round($total * ($tasaIVA / 100), 2);
 
-            $stmtTotal->bind_param("di", $total, $idVenta);
-            $stmtTotal->execute();
+$totalFinal = $total + $iva;
+
+// Actualizar subtotal indirectamente mediante los detalles,
+// IVA y total final de la venta.
+$stmtTotal = $db->prepare(
+    "UPDATE ventas
+     SET IVA = ?,
+         Total = ?
+     WHERE IdVenta = ?"
+);
+
+$stmtTotal->bind_param(
+    "ddi",
+    $iva,
+    $totalFinal,
+    $idVenta
+);
+
+$stmtTotal->execute();
 
             // Marcar el pedido como aprobado y vincular la venta.
             $stmtActualizarPedido = $db->prepare(

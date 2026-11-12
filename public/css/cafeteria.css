@@ -1332,6 +1332,24 @@ input, select, button, textarea {
     align-items: center;
 }
 
+/* Separación entre productos y resumen de importes */
+.recibo table tfoot tr:first-child th {
+    padding-top: 50px;
+    border-top: 2px solid #ccc;
+}
+
+/* Espaciado del subtotal, IVA y total */
+.recibo table tfoot th {
+    padding: 10px 12px;
+}
+
+/* Destacar el total final */
+.recibo table tfoot tr:last-child th {
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+    font-size: 1.1em;
+}
+
 /* ==================================================
 INICIO PÚBLICO Y ADMINISTRATIVO
 Ilustración de taza
