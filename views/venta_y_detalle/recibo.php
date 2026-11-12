@@ -22,6 +22,9 @@
                 ? htmlspecialchars($venta->ClienteNombres . ' ' . $venta->ClienteApellidos, ENT_QUOTES, 'UTF-8')
                 : 'Público general' ?>
         </p>
+        <p><strong>Sucursal:</strong>
+            <?= htmlspecialchars($venta->NombreSucursal, ENT_QUOTES, 'UTF-8') ?>
+        </p>
 
         <table>
             <thead>
@@ -37,18 +40,42 @@
                     </tr>
                 <?php endwhile; ?>
             </tbody>
+
             <tfoot>
-                <tr><th colspan="3">Total</th><th>$<?= number_format((float) $venta->Total, 2) ?> NIO</th></tr>
-            </tfoot>
+    <tr class="recibo-subtotal">
+        <th colspan="3">Subtotal</th>
+        <th>
+            $<?= number_format(
+                (float) $venta->Total - (float) $venta->IVA,
+                2
+            ) ?>
+        </th>
+    </tr>
+
+    <tr>
+        <th colspan="3">
+            IVA (<?= number_format((float) $venta->TasaIVA, 2) ?>%)
+        </th>
+        <th>
+            $<?= number_format((float) $venta->IVA, 2) ?>
+        </th>
+    </tr>
+
+    <tr>
+        <th colspan="3">Total</th>
+        <th>
+            $<?= number_format((float) $venta->Total, 2) ?> NIO
+        </th>
+    </tr>
+</tfoot>
         </table>
 
         <p class="recibo-gracias">¡Gracias por tu compra! Esperamos verte pronto.</p>
         <div class="recibo-actions">
-            <button type="button" onclick="window.print()" >Imprimir recibo</button>
-            <a href="index.php?controlador=venta&accion=comprar" class="button button-dark">Hacer otra compra</a>
-
                 <!-- Aque tambien esta lo de cafeteria.html -->
             <a href="index.php" class="button button-dark">Volver al inicio</a>
+
+            <a href="index.php?controlador=venta&accion=index" class="button button-dark">Volver a Ventas</a>
         </div>
     </main>
 </body>

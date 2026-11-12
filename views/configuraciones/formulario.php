@@ -21,7 +21,7 @@
 
 <form method="POST">
 
-    <label for="NombreConfiguracion">Nuevo valor de IVA:</label>
+    <label for="IVA">Nuevo valor de IVA:</label>
 
     <input
         type="number" id="IVA" name="IVA" maxlength="999.99" step="0.01"

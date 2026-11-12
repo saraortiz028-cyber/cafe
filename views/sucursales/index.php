@@ -7,6 +7,8 @@
 </head>
 <body>
 <?php include __DIR__ . '/../navbar.php'; ?>
+
+<div class="admin-content">
     <h1>Sucursales</h1>
     <p>
         <a href="index.php?controlador=sucursal&accion=crear" class="button button-dark">Nueva sucursal</a>
@@ -32,5 +34,6 @@
             </tr>
         <?php endwhile; ?>
     </table>
+</div>
 </body>
 </html>

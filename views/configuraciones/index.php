@@ -7,6 +7,8 @@
 </head>
 <body>
 <?php include __DIR__ . '/../navbar.php'; ?>
+
+<div class="admin-content">
 	<h1>Configuracion del IVA</h1>
 	<a href="index.php?controlador=configuracion&accion=crear" class="button button-dark">Nuevo valor de IVA</a>
 	<a href="index.php" class="button button-dark">Inicio</a></p>
@@ -28,5 +30,6 @@
 			</tr>
 		<?php endwhile; ?>
 	</table>
+</div>
 </body>
 </html>

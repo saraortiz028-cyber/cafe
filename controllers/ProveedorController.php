@@ -8,45 +8,100 @@ class ProveedorController {
 	}
 
 	public function crear() {
-		if ($_POST) {
-			Proveedor::guardar(
-				$_POST['Nombre'],
-				$_POST['Telefono'],
-				$_POST['Correo'] ?? '',
-				$_POST['Direccion'] ?? ''
-			);
-			header("Location: index.php?controlador=proveedor&accion=index");
-			exit;
-		}
-		require "views/proveedores/crear.php";
-	}
+        $editando = false;
+        $proveedor = null;
+        $error = null;
 
-	public function editar() {
-		$id = $_GET['id'] ?? null;
-		if (!$id) {
-			header("Location: index.php?controlador=proveedor&accion=index");
-			exit;
-		}
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-		if ($_POST) {
-			Proveedor::actualizar(
-				$id,
-				$_POST['Nombre'],
-				$_POST['Telefono'],
-				$_POST['Correo'] ?? '',
-				$_POST['Direccion'] ?? ''
-			);
-			header("Location: index.php?controlador=proveedor&accion=index");
-			exit;
-		}
+            $nombre = trim($_POST['Nombre'] ?? '');
+            $telefono = trim($_POST['Telefono'] ?? '');
+            $correo = trim($_POST['Correo'] ?? '');
+            $direccion = trim($_POST['Direccion'] ?? '');
 
-		$proveedor = Proveedor::obtenerPorId($id);
-		if (!$proveedor) {
-			header("Location: index.php?controlador=proveedor&accion=index");
-			exit;
-		}
-		require "views/proveedores/editar.php";
-	}
+            if ($nombre === '' || $telefono === '') {
+
+                $error = "El nombre y el teléfono son obligatorios.";
+
+                $proveedor = (object) [
+                    'Nombre' => $nombre,
+                    'Telefono' => $telefono,
+                    'Correo' => $correo,
+                    'Direccion' => $direccion
+                ];
+            } else {
+                Proveedor::guardar(
+                    $nombre,
+                    $telefono,
+                    $correo,
+                    $direccion
+                );
+
+                header(
+                    "Location: index.php?controlador=proveedor&accion=index"
+                );
+                exit;
+            }
+        }
+        require "views/proveedores/formulario.php";
+    }
+
+    public function editar() {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id || !ctype_digit((string) $id)) {
+            header(
+                "Location: index.php?controlador=proveedor&accion=index"
+            );
+            exit;
+        }
+
+        $proveedor = Proveedor::obtenerPorId($id);
+
+        if (!$proveedor) {
+            header(
+                "Location: index.php?controlador=proveedor&accion=index"
+            );
+            exit;
+        }
+
+        $editando = true;
+        $error = null;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $nombre = trim($_POST['Nombre'] ?? '');
+            $telefono = trim($_POST['Telefono'] ?? '');
+            $correo = trim($_POST['Correo'] ?? '');
+            $direccion = trim($_POST['Direccion'] ?? '');
+
+            if ($nombre === '' || $telefono === '') {
+
+                $error = "El nombre y el teléfono son obligatorios.";
+
+                $proveedor->Nombre = $nombre;
+                $proveedor->Telefono = $telefono;
+                $proveedor->Correo = $correo;
+                $proveedor->Direccion = $direccion;
+
+            } else {
+                Proveedor::actualizar(
+                    $id,
+                    $nombre,
+                    $telefono,
+                    $correo,
+                    $direccion
+                );
+
+                header(
+                    "Location: index.php?controlador=proveedor&accion=index"
+                );
+                exit;
+            }
+        }
+
+        require "views/proveedores/formulario.php";
+    }
 
 	public function eliminar() {
 		$id = $_GET['id'] ?? null;

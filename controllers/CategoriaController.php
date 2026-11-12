@@ -14,8 +14,8 @@ class CategoriaController {
     $error = null;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nombre = trim($_POST['nombre'] ?? '');
-        $descripcion = trim($_POST['descripcion'] ?? '');
+        $nombre = trim($_POST['Nombre'] ?? '');
+        $descripcion = trim($_POST['Descripcion'] ?? '');
 
         if ($nombre === '') {
             $error = 'El nombre de la categoría es obligatorio.';
@@ -27,8 +27,8 @@ class CategoriaController {
         }
 
         $categoria = (object) [
-            'nombre' => $nombre,
-            'descripcion' => $descripcion
+        'Nombre' => $nombre,
+        'Descripcion' => $descripcion
         ];
     }
 
@@ -54,8 +54,8 @@ public function editar() {
     $error = null;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nombre = trim($_POST['nombre'] ?? '');
-        $descripcion = trim($_POST['descripcion'] ?? '');
+        $nombre = trim($_POST['Nombre'] ?? '');
+        $descripcion = trim($_POST['Descripcion'] ?? '');
 
         if ($nombre === '') {
             $error = 'El nombre de la categoría es obligatorio.';

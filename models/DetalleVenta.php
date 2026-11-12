@@ -97,13 +97,58 @@ class DetalleVenta {
     }
 
     private static function actualizarTotal($db, $idVenta) {
-        $stmt = $db->prepare(
-            "UPDATE ventas
-             SET Total = (SELECT COALESCE(SUM(SubTotal), 0)
-                          FROM detalle_venta WHERE IdVenta = ?)
-             WHERE IdVenta = ?"
-        );
-        $stmt->bind_param("ii", $idVenta, $idVenta);
-        $stmt->execute();
+
+    // Obtener el subtotal de los productos.
+    $stmtSubtotal = $db->prepare(
+        "SELECT COALESCE(SUM(SubTotal), 0) AS Subtotal
+         FROM detalle_venta
+         WHERE IdVenta = ?"
+    );
+
+    $stmtSubtotal->bind_param("i", $idVenta);
+    $stmtSubtotal->execute();
+
+    $resultado = $stmtSubtotal->get_result()->fetch_object();
+
+    $subtotal = (float) $resultado->Subtotal;
+
+    // Obtener la tasa de IVA guardada en la venta.
+    $stmtIVA = $db->prepare(
+        "SELECT TasaIVA
+         FROM ventas
+         WHERE IdVenta = ?"
+    );
+
+    $stmtIVA->bind_param("i", $idVenta);
+    $stmtIVA->execute();
+
+    $venta = $stmtIVA->get_result()->fetch_object();
+
+    if (!$venta) {
+        throw new Exception("No se encontró la venta.");
     }
+
+    $tasaIVA = (float) $venta->TasaIVA;
+
+    // Calcular IVA y total.
+    $iva = round($subtotal * ($tasaIVA / 100), 2);
+
+    $total = $subtotal + $iva;
+
+    // Actualizar los valores de la venta.
+    $stmtActualizar = $db->prepare(
+        "UPDATE ventas
+         SET IVA = ?, Total = ?
+         WHERE IdVenta = ?"
+    );
+
+    $stmtActualizar->bind_param(
+        "ddi",
+        $iva,
+        $total,
+        $idVenta
+    );
+
+    $stmtActualizar->execute();
+}
 }

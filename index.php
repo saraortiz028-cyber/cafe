@@ -1,15 +1,78 @@
 <?php
 require_once "config/database.php";
+require_once "auth.php";
+
+Auth::iniciarSesion();
 
 $controlador = $_GET['controlador'] ?? null;
 $accion = $_GET['accion'] ?? 'index';
 
-if ($controlador === null) {
-    require_once "views/home.php";
+// Controladores que requieren sesión de empleado
+$controladoresAdmin = [
+    'empleado',
+    'cliente',
+    'proveedor',
+    'configuracion',
+    'categoria',
+    'cargo',
+    'sucursal',
+    'compra',
+    'producto',
+    'venta',
+    'pedido'
+];
+
+// Bloquear acceso administrativo si no ha iniciado sesión
+if (
+    in_array($controlador, $controladoresAdmin, true)
+    && !Auth::estaAutenticado()
+) {
+    header("Location: index.php?controlador=auth&accion=login");
     exit;
 }
 
-if ($controlador == 'empleado') {
+if ($controlador === null) {
+    if (Auth::estaAutenticado()) {
+        header("Location: index.php?controlador=home&accion=index");
+    } else {
+        require_once "views/home.php";
+    }
+
+    exit;
+}
+
+if ($controlador === 'auth') {
+    require_once "controllers/AuthController.php";
+    $controladorInstanciado = new AuthController();
+
+    if (in_array($accion, ['login', 'logout'], true)) {
+        $controladorInstanciado->$accion();
+    } else {
+        http_response_code(404);
+        echo "Acción no encontrada";
+    }
+}
+
+else if ($controlador === 'home') {
+
+    if (!Auth::estaAutenticado()) {
+        header("Location: index.php?controlador=auth&accion=login");
+        exit;
+    }
+
+    require_once "controllers/HomeController.php";
+
+    $controladorInstanciado = new HomeController();
+
+    if (in_array($accion, ['index', 'estadisticas'], true)) {
+        $controladorInstanciado->$accion();
+    } else {
+        http_response_code(404);
+        echo "Acción no encontrada";
+    }
+}
+
+else if ($controlador == 'empleado') {
     require_once "controllers/EmpleadoController.php";
     $controladorInstanciado = new EmpleadoController();
     $controladorInstanciado->$accion();
@@ -67,6 +130,45 @@ else if ($controlador == 'venta') {
     require_once "controllers/Venta_y_DetalleController.php";
     $controladorInstanciado = new VentaController();
     $controladorInstanciado->$accion();
+}
+
+else if ($controlador == 'pedido') {
+
+    require_once "controllers/PedidoController.php";
+
+    $controladorInstanciado = new PedidoController();
+
+    if (in_array($accion, [
+        'index',
+        'detalle',
+        'aprobar',
+        'rechazar'
+    ], true)) {
+
+        $controladorInstanciado->$accion();
+
+    } else {
+
+        http_response_code(404);
+        echo "Acción no encontrada";
+    }
+}
+
+else if ($controlador == 'publico') {
+    require_once "controllers/PublicoController.php";
+
+    $controladorInstanciado = new PublicoController();
+
+    if (in_array(
+    $accion,
+    ['productos', 'categorias', 'sucursales', 'confirmarPedido', 'pedido', 'recibo'],
+    true
+)) {
+    $controladorInstanciado->$accion();
+} else {
+    http_response_code(404);
+    echo "Acción no encontrada";
+}
 }
 
 else {

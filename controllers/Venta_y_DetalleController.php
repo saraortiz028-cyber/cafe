@@ -109,12 +109,25 @@ class VentaController {
                     $idVenta = Venta::guardarConDetalles($idCliente, $idEmpleado, $idSucursal, $detalles);
                     header("Location: index.php?controlador=venta&accion=recibo&id=" . $idVenta);
                     exit;
+            
                 } catch (mysqli_sql_exception $exception) {
-                    error_log('No fue posible registrar la compra: ' . $exception->getMessage());
-                    $error = 'No se pudo guardar la compra. Revisa los datos e inténtalo de nuevo.';
+                error_log('No fue posible registrar la compra: ' . $exception->getMessage());
+
+                $error = 'No se pudo guardar la compra. Revisa los datos e inténtalo de nuevo.';
+
+                } catch (Exception $exception) {
+                error_log('No fue posible registrar la compra: ' . $exception->getMessage());
+
+                if (strpos($exception->getMessage(), 'No hay existencias suficientes') !== false) {
+                $error = $exception->getMessage();
+                } else {
+                $error = 'No se pudo registrar la compra. Verifica los datos e inténtalo de nuevo.';
                 }
             }
         }
+}
+
+
 
         require "views/venta_y_detalle/comprar.php";
     }
