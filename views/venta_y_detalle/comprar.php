@@ -51,27 +51,28 @@
             <?php endwhile; ?>
         </select>
 
-        <label for="id_empleado">Empleado:</label>
-        <select id="id_empleado" name="id_empleado" required>
-            <option value="">Selecciona un empleado</option>
-            <?php while ($empleado = $empleados->fetch_object()): ?>
-                <option value="<?= (int) $empleado->IdEmpleado ?>"
-                    <?= $idEmpleadoSeleccionado === (string) $empleado->IdEmpleado ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($empleado->Nombre . ' ' . $empleado->Apellido, ENT_QUOTES, 'UTF-8') ?>
-                </option>
-            <?php endwhile; ?>
-        </select>
-
         <label for="id_sucursal">Sucursal:</label>
-        <select id="id_sucursal" name="id_sucursal" required>
-            <option value="">Selecciona una sucursal</option>
-            <?php while ($sucursal = $sucursales->fetch_object()): ?>
-                <option value="<?= (int) $sucursal->IdSucursal ?>"
-                    <?= $idSucursalSeleccionada === (string) $sucursal->IdSucursal ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($sucursal->Nombre, ENT_QUOTES, 'UTF-8') ?>
-                </option>
-            <?php endwhile; ?>
-        </select>
+<select id="id_sucursal" name="id_sucursal" required>
+    <option value="">Selecciona una sucursal</option>
+
+    <?php while ($sucursal = $sucursales->fetch_object()): ?>
+        <option value="<?= (int) $sucursal->IdSucursal ?>"
+            <?= $idSucursalSeleccionada === (string) $sucursal->IdSucursal ? 'selected' : '' ?>>
+            <?= htmlspecialchars($sucursal->Nombre, ENT_QUOTES, 'UTF-8') ?>
+        </option>
+    <?php endwhile; ?>
+</select>
+
+<label for="id_empleado">Empleado:</label>
+<select
+    id="id_empleado"
+    name="id_empleado"
+    required
+    disabled
+    data-empleado-seleccionado="<?= htmlspecialchars($idEmpleadoSeleccionado, ENT_QUOTES, 'UTF-8') ?>"
+>
+    <option value="">Primero selecciona una sucursal</option>
+</select>
 
         <p class="compra-total">Total estimado: <strong data-compra-total>$0.00 NIO</strong></p>
         <button type="submit">Confirmar compra y generar recibo</button>

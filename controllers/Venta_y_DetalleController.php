@@ -3,6 +3,7 @@ require_once "models/Venta.php";
 require_once "models/DetalleVenta.php";
 require_once "models/Productos.php";
 require_once "models/Cliente.php";
+require_once "models/Empleado.php";
 
 class VentaController {
     public function index() {
@@ -10,41 +11,106 @@ class VentaController {
         require "views/venta_y_detalle/index.php";
     }
 
-    public function crear() {
-        [$empleados, $sucursales] = $this->obtenerOpcionesVenta();
-        $clientes = Cliente::obtenerTodos();
-        $error = null;
-        $idClienteSeleccionado = '';
-        $idEmpleadoSeleccionado = '';
-        $idSucursalSeleccionada = '';
-        $venta = null;
+    public function empleadosPorSucursal() {
 
-        if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
-            $idClienteSeleccionado = (string) ($_POST['id_cliente'] ?? '');
-            $idEmpleadoSeleccionado = (string) ($_POST['id_empleado'] ?? '');
-            $idSucursalSeleccionada = (string) ($_POST['id_sucursal'] ?? '');
-            $idCliente = $idClienteSeleccionado === '' ? null : $this->idDesdePost('id_cliente');
-            $idEmpleado = $this->idDesdePost('id_empleado');
-            $idSucursal = $this->idDesdePost('id_sucursal');
+    header('Content-Type: application/json; charset=utf-8');
 
-            if (($idClienteSeleccionado !== '' && (!$idCliente || !$this->registroExiste('clientes', 'IdCliente', $idCliente))) ||
-                !$idEmpleado || !$this->registroExiste('empleados', 'IdEmpleado', $idEmpleado) ||
-                !$idSucursal || !$this->registroExiste('sucursales', 'IdSucursal', $idSucursal)) {
-                $error = 'Selecciona un cliente, empleado y sucursal válidos.';
-            } else {
-                $id = Venta::guardar(
-                    $_POST['fecha'] ?? date('Y-m-d'),
-                    $idCliente,
-                    $idEmpleado,
-                    $idSucursal
-                );
-                header("Location: index.php?controlador=venta&accion=detalle&id=" . $id);
-                exit;
-            }
-        }
+    $idSucursal = filter_input(
+        INPUT_GET,
+        'id_sucursal',
+        FILTER_VALIDATE_INT
+    );
 
-        require "views/venta_y_detalle/formulario.php";
+    if (!$idSucursal || $idSucursal <= 0) {
+        echo json_encode([]);
+        return;
     }
+
+    $resultado = Empleado::obtenerPorSucursal($idSucursal);
+
+    $empleados = [];
+
+    while ($empleado = $resultado->fetch_object()) {
+        $empleados[] = [
+            'IdEmpleado' => (int) $empleado->IdEmpleado,
+            'Nombre' => $empleado->Nombre,
+            'Apellido' => $empleado->Apellido
+        ];
+    }
+
+    echo json_encode($empleados);
+}
+
+    public function crear() {
+
+    [$empleados, $sucursales] = $this->obtenerOpcionesVenta();
+
+    $clientes = Cliente::obtenerTodos();
+
+    $error = null;
+
+    $idClienteSeleccionado = '';
+    $idEmpleadoSeleccionado = '';
+    $idSucursalSeleccionada = '';
+
+    $venta = null;
+
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+
+        // Recuperar valores del formulario
+
+        $idClienteSeleccionado = (string) ($_POST['id_cliente'] ?? '');
+        $idEmpleadoSeleccionado = (string) ($_POST['id_empleado'] ?? '');
+        $idSucursalSeleccionada = (string) ($_POST['id_sucursal'] ?? '');
+
+        // Convertir identificadores
+
+        $idCliente = $idClienteSeleccionado === ''
+            ? null
+            : $this->idDesdePost('id_cliente');
+
+        $idEmpleado = $this->idDesdePost('id_empleado');
+
+        $idSucursal = $this->idDesdePost('id_sucursal');
+
+
+        // Validar información
+
+        if (
+            ($idClienteSeleccionado !== '' &&
+                (!$idCliente || !$this->registroExiste('clientes', 'IdCliente', $idCliente))
+            ) ||
+
+            !$idEmpleado ||
+
+            !$idSucursal ||
+
+            !$this->registroExiste('sucursales', 'IdSucursal', $idSucursal) ||
+
+            !Empleado::perteneceASucursal($idEmpleado, $idSucursal)
+        ) {
+
+            $error = 'Selecciona un cliente, empleado y sucursal válidos.';
+
+        } else {
+
+            // Registrar venta
+
+            $id = Venta::guardar(
+                $_POST['fecha'] ?? date('Y-m-d'),
+                $idCliente,
+                $idEmpleado,
+                $idSucursal
+            );
+
+            header("Location: index.php?controlador=venta&accion=detalle&id=" . $id);
+            exit;
+
+        }
+    }
+
+    require "views/venta_y_detalle/formulario.php";
+}
 
     public function comprar() {
         $productos = $this->productosParaVista();
@@ -65,11 +131,18 @@ class VentaController {
             $idEmpleado = $this->idDesdePost('id_empleado');
             $idSucursal = $this->idDesdePost('id_sucursal');
 
-            if (($idClienteSeleccionado !== '' && (!$idCliente || !$this->registroExiste('clientes', 'IdCliente', $idCliente))) ||
-                !$idEmpleado || !$this->registroExiste('empleados', 'IdEmpleado', $idEmpleado) ||
-                !$idSucursal || !$this->registroExiste('sucursales', 'IdSucursal', $idSucursal)) {
-                $error = 'Selecciona un cliente, empleado y sucursal válidos.';
-            }
+            if (
+    ($idClienteSeleccionado !== '' &&
+        (!$idCliente || !$this->registroExiste('clientes', 'IdCliente', $idCliente))
+    ) ||
+    !$idEmpleado ||
+    !$this->registroExiste('empleados', 'IdEmpleado', $idEmpleado) ||
+    !$idSucursal ||
+    !$this->registroExiste('sucursales', 'IdSucursal', $idSucursal) ||
+    !Empleado::perteneceASucursal($idEmpleado, $idSucursal)
+) {
+    $error = 'Selecciona un cliente, empleado y sucursal válidos.';
+}
 
             foreach ($productos as $idProducto => $producto) {
                 $cantidadIngresada = $productosIngresados[$idProducto] ?? '0';
@@ -170,8 +243,10 @@ class VentaController {
             $idSucursal = $this->idDesdePost('id_sucursal');
 
             if (($idClienteSeleccionado !== '' && (!$idCliente || !$this->registroExiste('clientes', 'IdCliente', $idCliente))) ||
-                !$idEmpleado || !$this->registroExiste('empleados', 'IdEmpleado', $idEmpleado) ||
-                !$idSucursal || !$this->registroExiste('sucursales', 'IdSucursal', $idSucursal)) {
+                !$idEmpleado ||
+                !$idSucursal ||
+                !Empleado::perteneceASucursal($idEmpleado, $idSucursal) ||
+                !$this->registroExiste('sucursales', 'IdSucursal', $idSucursal)) {
                 $error = 'Selecciona un cliente, empleado y sucursal válidos.';
             } else {
                 Venta::actualizar(

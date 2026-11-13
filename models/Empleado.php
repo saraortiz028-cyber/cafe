@@ -8,6 +8,38 @@ class Empleado {
         return $db->query("SELECT * FROM empleados");
     }
 
+    public static function obtenerPorSucursal($idSucursal) {
+    $db = Database::conectar();
+
+    $stmt = $db->prepare(
+        "SELECT IdEmpleado, Nombre, Apellido
+         FROM empleados
+         WHERE IdSucursal = ?
+         ORDER BY Apellido, Nombre"
+    );
+
+    $stmt->bind_param("i", $idSucursal);
+    $stmt->execute();
+
+    return $stmt->get_result();
+}
+
+    public static function perteneceASucursal($idEmpleado, $idSucursal) {
+    $db = Database::conectar();
+
+    $stmt = $db->prepare(
+        "SELECT IdEmpleado
+         FROM empleados
+         WHERE IdEmpleado = ? AND IdSucursal = ?
+         LIMIT 1"
+    );
+
+    $stmt->bind_param("ii", $idEmpleado, $idSucursal);
+    $stmt->execute();
+
+    return $stmt->get_result()->num_rows > 0;
+}
+
     public static function obtenerPorId($id) {
         $db = Database::conectar();
         $stmt = $db->prepare(
